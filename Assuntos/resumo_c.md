@@ -1,6 +1,6 @@
 ### Resumo da linguagem C
 
-Os aspectos da linguagem C que vimos em aula até agora:
+Aspectos da linguagem C que talvez tenham sido vistos em l1:
 - [tipos básicos de dados](rc_tipo.md)
 - [variáveis](rc_variavel.md)
 - [expressões e operadores](rc_expressao.md)
