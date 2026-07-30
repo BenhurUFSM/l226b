@@ -394,7 +394,7 @@ A função `system` aguarda até que o programa `aplay` termine, o que faz com q
 
 - Se você não vê, a implementação do modo diurno é opcional.
 - Se você não ouve, a implementação de som é opcional.
-- Se você vê mas tem uma enorme falta de tempo ou de coragem, a implementação do modo noturno é opcinal.
+- Se você vê mas tem uma enorme falta de tempo ou de coragem, a implementação do modo noturno é opcional.
 - Se você tem alguma outra restrição, fale com o professor.
 
 ## Dicas + Esclarecimentos
