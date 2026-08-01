@@ -85,26 +85,27 @@ No final da partida, é apresentado um resumo da pontuação, se ela está entre
 
 ### Exemplo 1
 
-No primeiro exemplo de tela acima, caso restem 2 ataques inativos de tipos `9` e `1`, a sequência de telas a cada intervalo de tempo, caso o jogador não faça nada será:
+No primeiro exemplo de tela acima, caso restem 2 ataques inativos de tipos `9` e `1`, a sequência de telas a cada intervalo de tempo, caso o jogador não faça nada será como abaixo(cada linha abaixo representa uma alteração da tela; no programa, elas seriam escritas uma sobre a outra). O texto à direita diz o que aconteceu logo antes dessa linha ser desenhada.
 ```
  14 10 5)))      1071
- 14 10 5)))     10719
- 14 10 5)))    107191
- 14 10 5)))   107191
+ 14 10 5)))     10719       moveu para a esquerda e apareceu o 9
+ 14 10 5)))    107191       moveu para a esquerda e apareceu o 1
+ 14 10 5)))   107191        moveu para a esquerda e não tinha mais inativos
  14 10 5)))  107191
  14 10 5))) 107191
  14 10 5)))107191
- 14 10 5)) 07191
+ 14 10 5)) 07191            o 1 destruiu o 3º escudo e se destruiu
  14 10 5))07191
- 14 10 5) 7191
+ 14 10 5) 7191              o 0 destruiu o 2º escudo
  14 10 5)7191
+ 14 10 5 191                o 7 destruiu o 1º escudo
  14 10 5191
- 14 10 191                  invasão bem sucedida — fim da partida
+ 14 10  91                  o 1 destruiu a base — invasão bem sucedida — fim da partida
 ```
 
 ### Exemplo 2
 
-No segundo exemplo acima, a sequência de telas poderia ser:
+No segundo exemplo acima, a sequência de telas poderia ser (o texto à direita diz o que aconteceu depois da linha ser desenhada):
 ```
  15 5 n))  2 N  1           o jogador aperta enter
  15 4 n))  2 n  1           o tempo passa
@@ -393,7 +394,7 @@ A função `system` aguarda até que o programa `aplay` termine, o que faz com q
 
 - Se você não vê, a implementação do modo diurno é opcional.
 - Se você não ouve, a implementação de som é opcional.
-- Se você vê mas tem uma enorme falta de tempo ou de coragem, a implementação do modo noturno é opcinal.
+- Se você vê mas tem uma enorme falta de tempo ou de coragem, a implementação do modo noturno é opcional.
 - Se você tem alguma outra restrição, fale com o professor.
 
 ## Dicas + Esclarecimentos
