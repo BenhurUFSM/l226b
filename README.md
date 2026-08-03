@@ -6,6 +6,8 @@ professor: Benhur Stein ([benhur+l226b@inf.ufsm.br](mailto:benhur%2bl226b@inf.uf
 segundas e quartas, 14h30, turma CC2\
 sala 422, prédio 10 (pavilhão de laboratórios do CT)
 
+arquivo rascunho: https://docs.google.com/document/d/1N21tqLkZEnALHvoJXw3apZegu-AAAba2f8wwZH7tIng/edit?usp=sharing
+
 ## Desenvolvimento da disciplina
 
 Os canais de comunicação entre o professor e os alunos são:
@@ -69,7 +71,7 @@ Os assuntos vistos em aula serão listados aqui.
 
 |    N |   data | assunto
 | ---: | -----: | :--------
-|    1 |   4ago | apresentação, [revisão da linguagem C](Assuntos/resumo_c.md), [trabalho 1](Trabalhos/t1)
+|    1 |   3ago | apresentação, [revisão da linguagem C](Assuntos/resumo_c.md), [trabalho 1](Trabalhos/t1)
 
 ## Exercícios, trabalhos
 
