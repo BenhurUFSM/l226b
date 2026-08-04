@@ -9,6 +9,8 @@ alunos: [planilha](https://docs.google.com/spreadsheets/d/18DdIKnQfo3YsTKC5sz_xc
 
 arquivo [rascunho](https://docs.google.com/document/d/1N21tqLkZEnALHvoJXw3apZegu-AAAba2f8wwZH7tIng/edit?usp=sharing)
 
+arquivo rascunho: https://docs.google.com/document/d/1N21tqLkZEnALHvoJXw3apZegu-AAAba2f8wwZH7tIng/edit?usp=sharing
+
 ## Desenvolvimento da disciplina
 
 Os canais de comunicação entre o professor e os alunos são:
