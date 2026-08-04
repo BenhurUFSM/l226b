@@ -4,7 +4,10 @@ Disciplina de Laboratório de Programação II, 2º semestre de 2026
 ELC1067 DLSC/CT/UFSM\
 professor: Benhur Stein ([benhur+l226b@inf.ufsm.br](mailto:benhur%2bl226b@inf.ufsm.br))\
 segundas e quartas, 14h30, turma CC2\
-sala 422, prédio 10 (pavilhão de laboratórios do CT)
+sala 422, prédio 10 (pavilhão de laboratórios do CT)\
+alunos: [planilha](https://docs.google.com/spreadsheets/d/18DdIKnQfo3YsTKC5sz_xcQietQUFk_2vpRuR4jtxmNc/edit?usp=sharing)
+
+arquivo [rascunho](https://docs.google.com/document/d/1N21tqLkZEnALHvoJXw3apZegu-AAAba2f8wwZH7tIng/edit?usp=sharing)
 
 ## Desenvolvimento da disciplina
 
@@ -69,7 +72,7 @@ Os assuntos vistos em aula serão listados aqui.
 
 |    N |   data | assunto
 | ---: | -----: | :--------
-|    1 |   4ago | apresentação, [revisão da linguagem C](Assuntos/resumo_c.md), [trabalho 1](Trabalhos/t1)
+|    1 |   3ago | apresentação, [revisão da linguagem C](Assuntos/resumo_c.md), [trabalho 1](Trabalhos/t1)
 
 ## Exercícios, trabalhos
 
