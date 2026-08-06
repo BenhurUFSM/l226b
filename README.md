@@ -73,7 +73,7 @@ Os assuntos vistos em aula serão listados aqui.
 |    N |   data | assunto
 | ---: | -----: | :--------
 |    1 |   3ago | apresentação, [revisão da linguagem C](Assuntos/resumo_c.md), [trabalho 1](Trabalhos/t1)
-|    2 |   5ago | respostas a perguntas, esquematização do t1
+|    2 |   5ago | [respostas a perguntas, esquematização do t1](Assuntos/a2.md)
 |    3 |  10ago | desenvolvimento do t1
 |    4 |  12ago | desenvolvimento do t1
 
