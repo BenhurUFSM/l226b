@@ -4,6 +4,12 @@ Trabalho inicial de lab2, para revisão da linguagem C.
 
 Você deve implementar um programa que permite jogar "Invasores do Espaço", como descrito abaixo.
 
+## Entrega
+
+Até o prazo de entrega:
+- Crie um diretório "entrega-t1" no seu repositório git.
+- Coloque nesse diretório os arquivos que implementam o t1.
+- Não esqueça commit/push.
 
 ## Descrição do jogo
 
