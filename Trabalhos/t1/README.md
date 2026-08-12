@@ -406,3 +406,22 @@ A função `system` aguarda até que o programa `aplay` termine, o que faz com q
 ## Dicas + Esclarecimentos
 
 Se surgirem perguntas, aparecerão respostas, dicas ou esclarecimentos aqui.
+
+#### Sobre `sprintf`
+
+A função `sprintf` realiza formatação de valores, da mesma forma que a função `printf`.
+A diferença está em onde o resultado dessa formatação será colocado. No caso de `printf`, será colocado na saída padrão (geralmente o terminal), enquanto que no caso de `sprintf`, será colocado em um vetor de char, como uma string.
+O vetor onde a string será colocada deve ser passado como primeiro argumento de `sprintf`.
+Outra função da mesma família é `fprintf`, que envia o resultado para um arquivo.
+
+Por exemplo:
+```c
+   int a = 42;
+   printf("a vale %d.", a);  // envia ao terminal a string "a vale 42."
+   char v[30];
+   sprintf(v, "a vale %d.", a);  // coloca no vetor v a string "a vale 42."
+   fprintf(f, "a vale %d.", a);  // grava a string "a vale 42." no arquivo
+                                 // referenciado por f (que deve estar
+                                 // aberto para escrita)
+```
+No t1, `sprintf` pode ser usado para formatar o comando para ser usado como argumento para `system`, para tocar os sons.
