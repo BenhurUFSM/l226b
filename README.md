@@ -76,12 +76,14 @@ Os assuntos vistos em aula serão listados aqui.
 |    2 |   5ago | [respostas a perguntas, esquematização do t1](Assuntos/a2.md)
 |    3 |  10ago | desenvolvimento do t1
 |    4 |  12ago | desenvolvimento do t1
+|    5 |  17ago | [tipos abstratos de dados](Assuntos/tad.md), anúncio do t2
 
 ## Exercícios, trabalhos
 
 |     N |     prazo | descrição
 | ----: | --------: | :-----------
 |    T1 | 17ago,<meio-dia | [invasores do espaço](Trabalhos/t1)
+|    T2 |  | [TAD string](Trabalhos/t2)
 
 ## Bibliografia
 
