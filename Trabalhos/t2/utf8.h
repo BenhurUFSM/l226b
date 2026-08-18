@@ -32,6 +32,7 @@ typedef unsigned char byte;
 
 // tipo para representar um codepoint (código de um caractere unicode)
 typedef unsigned int unichar;
+#define UNI_INV ((unichar) -1)   // representa um caractere inválido
 
 
 // se o caractere unicode uni for válido
