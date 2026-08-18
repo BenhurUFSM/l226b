@@ -36,14 +36,17 @@ static void s_ok(Str s)
 
 Str s_cria(char *strC)
 {
+  Str s = malloc(sizeof(*s));
+  assert(s != NULL);
   //...
-  return NULL;
+  return s;
 }
 
 void s_destroi(Str s)
 {
   s_ok(s);
   //...
+  free(s);
 }
 
 // operações de acesso {{{1
@@ -73,7 +76,7 @@ Str s_substring(Str s, int pos, int tam)
 {
   s_ok(s);
   //...
-  return NULL;
+  return s_cria("falta implementar s_substring!");
 }
 
 Str s_copia(Str s)
