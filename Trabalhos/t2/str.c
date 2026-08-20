@@ -26,7 +26,7 @@ struct str {
 
 // verifica se a string cad está de acordo com a especificação
 // aborta o programa se não tiver
-static void s_ok(Str s)
+static void s_ok(Str_c s)
 {
 }
 
@@ -34,7 +34,7 @@ static void s_ok(Str s)
 
 // operações de criação e destruição {{{1
 
-Str s_cria(char *strC)
+Str s_cria(char const *strC)
 {
   Str s = malloc(sizeof(*s));
   assert(s != NULL);
@@ -49,47 +49,54 @@ void s_destroi(Str s)
   free(s);
 }
 
+Str s_cria_substring(Str_c s, int pos, int tam)
+{
+   Str nova = s_cria("");
+   s_substring(nova, s, pos, tam);
+   return nova;
+}
+
+Str s_cria_cópia(Str_c s)
+{
+   return s_cria_substring(s, 0, -1);
+}
+
+// Retorna uma nova string com o conteúdo do arquivo chamado nome.
+// Retorna uma string vazia em caso de erro.
+Str s_cria_de_arquivo(char *nome)
+{
+  Str s = s_cria("");
+  //...
+  return s;
+}
+
 // operações de acesso {{{1
 
-int s_tam(Str s)
+int s_tam(Str_c s)
 {
   s_ok(s);
   //...
   return 0;
 }
 
-char *s_strc(Str s)
+char *s_strc(Str_c s)
 {
   s_ok(s);
   //...
   return NULL;
 }
 
-unichar s_ch(Str s, int pos)
+unichar s_ch(Str_c s, int pos)
 {
   s_ok(s);
   //...
   return UNI_INV;
 }
 
-Str s_substring(Str s, int pos, int tam)
-{
-  s_ok(s);
-  //...
-  return s_cria("falta implementar s_substring!");
-}
-
-Str s_copia(Str s)
-{
-  s_ok(s);
-  //...
-  return NULL;
-}
-
 
 // operações de busca e comparação {{{1
 
-bool s_igual(Str s, Str sb)
+bool s_igual(Str_c s, Str_c sb)
 {
   s_ok(s);
   s_ok(sb);
@@ -97,7 +104,7 @@ bool s_igual(Str s, Str sb)
   return false;
 }
 
-int s_busca_c(Str s, int pos, Str sb)
+int s_busca_c(Str_c s, int pos, Str_c sb)
 {
   s_ok(s);
   s_ok(sb);
@@ -105,7 +112,7 @@ int s_busca_c(Str s, int pos, Str sb)
   return -1;
 }
 
-int s_busca_nc(Str s, int pos, Str sb)
+int s_busca_nc(Str_c s, int pos, Str_c sb)
 {
   s_ok(s);
   s_ok(sb);
@@ -113,7 +120,7 @@ int s_busca_nc(Str s, int pos, Str sb)
   return -1;
 }
 
-int s_busca_rc(Str s, int pos, Str sb)
+int s_busca_rc(Str_c s, int pos, Str_c sb)
 {
   s_ok(s);
   s_ok(sb);
@@ -121,7 +128,7 @@ int s_busca_rc(Str s, int pos, Str sb)
   return -1;
 }
 
-int s_busca_rnc(Str s, int pos, Str sb)
+int s_busca_rnc(Str_c s, int pos, Str_c sb)
 {
   s_ok(s);
   s_ok(sb);
@@ -129,7 +136,7 @@ int s_busca_rnc(Str s, int pos, Str sb)
   return -1;
 }
 
-int s_busca_s(Str s, int pos, Str buscada)
+int s_busca_s(Str_c s, int pos, Str_c buscada)
 {
   s_ok(s);
   s_ok(buscada);
@@ -140,59 +147,69 @@ int s_busca_s(Str s, int pos, Str buscada)
 
 // operações de alteração {{{1
 
-void s_substitui(Str s, int pos, int tam, Str sb)
+void s_substitui(Str s, int pos, int tam, Str_c sb)
 {
   s_ok(s);
   s_ok(sb);
   //...
 }
 
-void s_anexa(Str s, Str sb)
+void s_substring(Str s, Str_c sb, int pos, int tam)
+{
+  s_ok(s);
+  s_ok(sb);
+  //...
+}
+
+void s_copia(Str s, Str_c sb)
+{
+  s_substring(s, sb, 0, -1);
+}
+
+void s_insere(Str s, int pos, Str_c sb)
+{
+  s_substitui(s, pos, 0, sb);
+}
+
+void s_insere_c(Str s, int pos, unichar c)
+{
+  s_ok(s);
+  //...
+}
+
+void s_anexa(Str s, Str_c sb)
 {
   s_substitui(s, -1, 0, sb);
 }
 
-void s_insere(Str s, int pos, Str sb)
+void s_anexa_c(Str s, unichar c)
 {
-  //...
+  s_insere_c(s, -1, c);
 }
 
 void s_remove(Str s, int pos, int tam)
 {
-  //...
+  s_substitui(s, pos, tam, NULL);
 }
 
-Str s_apara(Str s, Str sobras)
+void s_apara(Str s, Str_c sobras)
 {
   s_ok(s);
   s_ok(sobras);
   //...
-  return NULL;
 }
 
 // operações de E/S {{{1
 
-// imprime a string em s na saída padrão
-void s_imprime(Str s)
+void s_imprime(Str_c s)
 {
   s_ok(s);
   //...
 }
 
-// Retorna uma nova string com o conteúdo do arquivo chamado nome.
-// Retorna uma string vazia em caso de erro.
-Str s_le_arquivo(Str nome)
-{
-  s_ok(nome);
-  //...
-  return NULL;
-}
-
-// grava o conteúdo de s em um arquivo chamado nome
-void s_grava_arquivo(Str s, Str nome)
+void s_grava_arquivo(Str_c s, char *nome)
 {
   s_ok(s);
-  s_ok(nome);
   //...
 }
 

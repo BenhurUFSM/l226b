@@ -1,5 +1,16 @@
 ## Trabalho 2 - implementação de TAD - string
 
+### Alterações
+- 19ago - versão inicial
+- 20ago - alteração na interface:
+   - funções que retornam uma nova string iniciam com `s_cria`.
+   - inclusão do tipo `Str_c`, para declarar parâmetros que são strings que não serão alteradas pela função.
+   - alterações na interface para usar `Str_c` para parâmetros não alteráveis.
+   - inclusão de `s_insere_c` e `s_anexa_c`, para inclusão de caracteres individuais em uma string.
+   - inclusão de sugestão de uso de `fread` e `fwrite`.
+
+### Descrição
+
 Implemente o tipo abstrato de dados *string* como descrito abaixo.
 
 São fornecidos os seguintes arquivos:
@@ -26,4 +37,4 @@ A opção `-g` serve para o compilador colocar algumas informações adicionais 
 ```
    valgrind ./teste_str
 ```
-
+- Para leitura e escrita de strings, use as funções `fread` e `fwrite`.
