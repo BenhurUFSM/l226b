@@ -38,3 +38,17 @@ A opção `-g` serve para o compilador colocar algumas informações adicionais 
    valgrind ./teste_str
 ```
 - Para leitura e escrita de strings, use as funções `fread` e `fwrite`.
+
+
+### RAP
+
+- A função s_ok verifica se a string está "de acordo com a especificação", quais são as especificações da string?
+
+   É para ser uma função de auxílio à depuração, para verificar se a struct que implementa a string não tem algum problema fácil de ser detectado, que não deveria existir, e com o qual o programa não deve continuar.
+
+   Por exemplo, tem a informação de que a string tem tantos caracteres, mas o ponteiro para os dados é NULL, ou que a string é vazia e o ponteiro não é NULL.
+   Ou tem mais caracteres que bytes. Depende do que for colocado na struct que implementa a string.
+ 
+- Quando `str.c` mexe nas strings, as strings já foram convertidas para UTF8?
+
+   Todas as funções que mexem internamente nas strings estão em `str.c`. Não existe string que seja mexida por `str.c` que não tenha sido criada e alterada exclusivamente pelas funções em `str.c`. Elas não devem permitir que a string seja inválida.
