@@ -52,3 +52,8 @@ A opção `-g` serve para o compilador colocar algumas informações adicionais 
 - Quando `str.c` mexe nas strings, as strings já foram convertidas para UTF8?
 
    Todas as funções que mexem internamente nas strings estão em `str.c`. Não existe string que seja mexida por `str.c` que não tenha sido criada e alterada exclusivamente pelas funções em `str.c`. Elas não devem permitir que a string seja inválida.
+
+- Tem certeza que é "Rica" e não "áica"?
+
+   Ops!
+
