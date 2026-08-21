@@ -78,6 +78,7 @@ Os assuntos vistos em aula serão listados aqui.
 |    4 |  12ago | desenvolvimento do t1
 |    5 |  17ago | [tipos abstratos de dados](Assuntos/tad.md), anúncio do t2
 |    6 |  19ago | [listas](Assuntos/lista.md)
+|    7 |  25ago | [implementação de listas - contígua](Assuntos/lista-implementacao-contigua.md)
 
 ## Exercícios, trabalhos
 
