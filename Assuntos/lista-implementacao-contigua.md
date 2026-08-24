@@ -107,3 +107,38 @@ Após uma realocação que aumenta a capacidade para 10, ele pode ficar em uma d
        2 3 4           0 1 (índices na lista)
 ```
 
+### Exercícios
+
+Suponha que uma lista circular seja implementada com a estrutura abaixo, em que o vetor `dad` é alocado dinamicamente.
+```c
+typedef struct lista *Lista;
+struct lista {
+    int cap;      // quantos dados cabem em dad
+    int pri;      // onde em dad está o primeiro elemento da lista
+    int num;      // quantos elementos tem na lista
+    dado_t *dad;  // vetor de cap dados alocado dinamicamente
+};
+```
+Implemente funções para:
+1. Inserir um elemento no início da lista (sem realocação dinâmica)
+   ```c
+   bool l_ins_ini(Lista l, dado_t d)
+   {
+       if (l->num >= l->cap) return false;
+       // o teste acima seria melhor como `if (l->cheia(l))`
+       int ind;
+       if (l->pri == 0) ind = l->cap - 1;
+       else ind = l->pri - 1;
+       // o cálculo de ind poderia ser `ind = (l->pri + l->cap - 1) % l->cap`
+       // ou uma função para fazer esse cálculo: `ind = indice_pos(l, -1)`
+       l->dad[ind] = d;
+       l->pri = ind;
+       l->num++;
+       return true;
+   }
+   ```
+2. Inserir um dado no final da lista (sem realocação dinâmica)
+3. Inserir um dado na posição `pos` da lista (sem realocação dinâmica)
+4. As 3 inserções, com alocação dinâmica (chame uma função auxiliar para realocar, no lugar do primeiro if)
+5. As remoções equivalentes ao exercício anterior
+
