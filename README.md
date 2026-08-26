@@ -79,13 +79,14 @@ Os assuntos vistos em aula serão listados aqui.
 |    5 |  17ago | [tipos abstratos de dados](Assuntos/tad.md), anúncio do t2
 |    6 |  19ago | [listas](Assuntos/lista.md)
 |    7 |  24ago | [implementação de listas - contígua](Assuntos/lista-implementacao-contigua.md) e [encadeada com alocação contígua](Assuntos/lista-implementacao-encadeada-alocacao-contigua.md)
+|    8 |  26ago | implementação de lista encadeada com alocação contígua (o arquivo acima foi alterado, o código exemplo foi corrigido, implemente o exercício).
 
 ## Exercícios, trabalhos
 
 |     N |     prazo | descrição
 | ----: | --------: | :-----------
 |    T1 | 17ago,<meio-dia | [invasores do espaço](Trabalhos/t1)
-|    T2 |  | [TAD string](Trabalhos/t2)
+|    T2 | 2set | [TAD string](Trabalhos/t2)
 
 ## Bibliografia
 
