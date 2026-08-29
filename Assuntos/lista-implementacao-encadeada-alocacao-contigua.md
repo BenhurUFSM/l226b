@@ -79,3 +79,11 @@ Nos vetores são mantidas duas listas, a que contém os dados e a que contém as
 
 1. Implemente as funções faltantes na em lista_ev.c. Complemente os testes em lista_ev.c.
 
+Algumas operações na lista ficam mais rápidas colocando o número de elementos atual no descritor da lista, e o índice do último elemento.
+Compare [lista_ev.c](../Complementos/lista_ev.c) com [lista_ev_n.c](../Complementos/lista_ev_n.c).
+Aproveita e ajeita as funções de remoção...
+
+Uma outra forma de organizar as informações da lista é trocando os dois vetores, um de dados e um de índices por um só vetor, contendo registros (chamados nós da lista).
+Cada nó contém o dado e o índice do próximo nó.
+Dessa forma, fica mais claro que essas duas informações são interligadas.
+Compare [lista_ev_n.c](../Complementos/lista_ev_n.c) com [lista_evr.c](../Complementos/lista_evr.c).
