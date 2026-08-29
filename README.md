@@ -78,7 +78,7 @@ Os assuntos vistos em aula serão listados aqui.
 |    4 |  12ago | desenvolvimento do t1
 |    5 |  17ago | [tipos abstratos de dados](Assuntos/tad.md), anúncio do t2
 |    6 |  19ago | [listas](Assuntos/lista.md)
-|    7 |  24ago | [implementação de listas - contígua](Assuntos/lista-implementacao-contigua.md) e [encadeada com alocação contígua](Assuntos/lista-implementacao-encadeada-alocacao-contigua.md)
+|    7 |  24ago | [implementação de listas - contígua](Assuntos/lista-implementacao-contigua.md), [encadeada com alocação contígua](Assuntos/lista-implementacao-encadeada-alocacao-contigua.md) e [encadeada com alocação individual](Assuntos/lista-implementacao-encadeada-alocacao-individual.md).
 |    8 |  26ago | implementação de lista encadeada com alocação contígua (o arquivo acima foi alterado, o código exemplo foi corrigido, implemente o exercício).
 
 ## Exercícios, trabalhos
