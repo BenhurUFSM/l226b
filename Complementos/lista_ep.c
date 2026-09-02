@@ -171,7 +171,7 @@ void l_insere_pos(Lista l, dado_t d, int p)
 {
   // se a inserção for no início ou no fim, temos uma função pronta...
   if (p == 0) { l_insere_inicio(l, d); return; }
-  if (p == l->tamanho - 1) { l_insere_inicio(l, d); return; }
+  if (p == l->tamanho - 1) { l_insere_fim(l, d); return; }
   // acha o índice do elemento anterior ao inserido
   nó *anterior = l_nó_na_posição(l, p - 1);
   // o índice do dado seguinte
