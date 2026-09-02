@@ -2,7 +2,7 @@
 
 ### Descrição
 
-Implemente uma calculadora, como descritoa abaixo.
+Implemente uma calculadora, como descrito abaixo.
 
 São fornecidos os seguintes arquivos:
 - `str.h` - interface do TAD Str, igual o do t2, com a adição de algumas funções
@@ -50,3 +50,9 @@ p\\e    |  F | +- |\*/ |  ^ |  ( |  )
 **(**   | Er |  E |  E |  E |  E |  D
 
 O programa principal deve ler um arquivo de entrada, separá-lo em uma lista de linhas, chamar a função de cálcula para cada linha da lista, colocar cada resultado em uma lista de saída, gravar um arquivo de saída com uma resposta por linha.
+
+### Parte II
+
+Inclua suporte a variáveis na calculadora.
+
+*descrição breve*
