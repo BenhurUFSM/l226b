@@ -80,6 +80,8 @@ Os assuntos vistos em aula serão listados aqui.
 |    6 |  19ago | [listas](Assuntos/lista.md)
 |    7 |  24ago | [implementação de listas - contígua](Assuntos/lista-implementacao-contigua.md), [encadeada com alocação contígua](Assuntos/lista-implementacao-encadeada-alocacao-contigua.md) e [encadeada com alocação individual](Assuntos/lista-implementacao-encadeada-alocacao-individual.md).
 |    8 |  26ago | implementação de lista encadeada com alocação contígua (o arquivo acima foi alterado, o código exemplo foi corrigido, implemente o exercício).
+|    9 |  31ago | exercícios sobre listas
+|   10 |   2set | [listas duplamente encadeadas](Assuntos/lista-duplamente-encadeada.md)
 
 ## Exercícios, trabalhos
 
