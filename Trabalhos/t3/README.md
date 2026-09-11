@@ -49,10 +49,29 @@ p\\e    |  F | +- |\*/ |  ^ |  ( |  )
 **^**   |  O |  O |  O |  E |  E |  O
 **(**   | Er |  E |  E |  E |  E |  D
 
-O programa principal deve ler um arquivo de entrada, separá-lo em uma lista de linhas, chamar a função de cálcula para cada linha da lista, colocar cada resultado em uma lista de saída, gravar um arquivo de saída com uma resposta por linha.
+O programa principal deve ler um arquivo de entrada, separá-lo em uma lista de linhas, chamar a função de cálculo para cada linha da lista, colocar cada resultado em uma lista de saída, gravar um arquivo de saída com uma resposta por linha.
 
 ### Parte II
 
 Inclua suporte a variáveis na calculadora.
 
-*descrição breve*
+A calculadora conterá um dicionário, contendo o nome e valor das variáveis.
+O arquivo `dicionario.h` contém a interface do TAD para isso, com uma implementação simples em `dic_simples.c` e alguns testes em `teste_dic.c`.
+O dicionário deve sobreviver entre chamadas a `calculadora`.
+
+A função que separa em tokens separa assim:
+- pula caracteres espaço
+- se o primeiro caractere não espaço for um dos operadores, o token é esse caractere
+- se o primeiro caractere não espaço for um dígito ou '.', o token é esse caractere mais os caracteres seguintes que também forem dígito ou '.'
+- se o primeiro caractere não espaço for uma letra ou '$', o token é esse caractere mais os caracteres seguintes que forem letra, dígito ou '_'
+- senão é erro.
+
+Um token que não é erro nem operador é operando.
+
+Faça uma função que retorna o valor de um operando. Se o operando for um número, obtenha o valor usando a função s_número da Str. Se o operando não for um número, use o operando como chave na busca no dicionário de variáveis, e use a função s_número no valor resultante. Se a busca não for bem sucedida, é erro.
+
+Uma função que opera, por exemplo uma função para a soma, retira dois operandos da pilha de operandos, usa a função acima para obter o valor deles, realiza a operação, cria uma nova string com o resultado e empilha essa string na pilha de operandos. E destrói as strings.
+
+O operador `=` retira dois operandos da pilha, obtém o valor do primeiro retirado, cria uma string com esse valor, verifica se o segundo valor retirado é um nome, e insere esse nome como chave para o valor, no dicionário. Empilha o resultado.
+
+Na tabela, a linha com o operador `=` contém `E` em todas as colunas exceto nas colunas `F` e `)`, que tem `O`. A coluna do `=` tem `E` em todas as linhas.
