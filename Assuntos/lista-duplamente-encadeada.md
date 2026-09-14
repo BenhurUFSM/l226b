@@ -233,3 +233,128 @@ Se sabemos quantos bytes tem o dado, podemos alocar memória para a estrutura co
   nó *n = malloc(sizeof(nó) + tamanho_do_dado);
   memcpy(n->dado, pdado, tamanho_do_dado);
 ```
+
+#### Percurso da lista
+
+Um percurso em uma lista (ou em outra estrutura que é um container) é a realização de uma "visita" a cada um dos dados armazazenados na lista.
+O que é feito nessa visita depende da necessidade do usuário, pode ser para E/S, ou para pesquisa, ou para filtragem, ou para alteração, etc.
+Existem várias formas de se implementar um percurso. Pode ser um percurso dedicado (uma função para imprimir o conteúdo da lista, por exemplo), ou um percurso que dê ao usuário a possibilidade de escolher o que fazer com cada dado vistado, que é bem mais útil.
+
+Uma forma é fornecendo ao usuário uma forma de acesso que permite o acesso a qualquer dado (por exemplo, por posição), e uma forma de saber quantos e quais dados são acessáveis, e o usuário implementar um laço. Por exemplo:
+```c
+   Lista l;
+   // ... manipula a lista, de forma que ela contenha dados interessantes
+   int n = l_num_dados(l);
+   for (int i = 0; i < n; n++) {
+       dado_t d = l_dado_na_posição(l, i);
+       faz_algo_com_o_dado(d);
+   }
+```
+Essa solução tem a desvantagem de colocar no código do usuário a mecânica do percurso, e de dificultar uma implementação mais otimizada do percurso, que seria mais facilmente implementada com acesso à estrutura interna da lista. Em uma lista encadeada, por exemplo, é muito fácil obter o dado seguinte tendo o dado anterior, mas é bem mais caro obter um dado qualquer por posição.
+
+Uma outra implementação possível é passar todo o controle para a lista, em uma função que faz todo o percurso. Para que o usuário tenha controle sobre o que se quer fazer com cada dado, é usual passar para a lista uma função que ela deve chamar para cada dado. Algo assim:
+```c
+   Lista l;
+   // ... manipula a lista, de forma que ela contenha dados interessantes
+   l_para_todos(l, faz_algo_com_o_dado);
+```
+Essa forma de percurso tem algumas dificuldades operacionais: tem que tem uma forma de se passar uma função para a lista poder chamá-la (para não ser uma só coisa a fazer com os dados e para o usuário ter controle sobre o que será feito), e em casos menos simples, essa função pode ter necessidade de alguma informação adicional para realizar o que tem que fazer, além do dado. Por exemplo, poderia ser uma função que grava os dados em um arquivo, ela teria que saber que arquivo é esse. Isso poderia ser resolvido usando variáveis globais ou passando mais uma informação para a lista, para ela repassar para a função. Algo como:
+```c
+   Lista l;
+   // ... manipula a lista, de forma que ela contenha dados interessantes
+   l_para_todos(l, grava_o_dado, arquivo);
+```
+A lista nesse caso, chamaria, para cada dado, `grava_o_dado(dado, arquivo);`.
+
+Uma terceira possibilidade é ter uma estrutura auxiliar que permite a iteração da lista (um iterador). Essa estrutura é definida pela lista, e contém as informações necessárias para saber em que ponto da lista está o percurso e para obter o próximo elemento da lista a ser visitado. Essa estrutura pode ser mantida internamente na lista ou fornecida ao usuário. O percurso ficaria algo assim:
+```c
+   Lista l;
+   // ... manipula a lista, de forma que ela contenha dados interessantes
+   Iterador it = l_percurso(l);
+   while ((d = it_próximo(it)) != NÃO_TEM_MAIS_DADOS) {
+       faz_algo_com_o_dado(d);
+   }
+```
+ou, com o iterador gerenciado internamente:
+```c
+   Lista l;
+   // ... manipula a lista, de forma que ela contenha dados interessantes
+   l_inicia_percurso(l);
+   while ((d = l_próximo(it)) != NÃO_TEM_MAIS_DADOS) {
+       faz_algo_com_o_dado(d);
+   }
+```
+
+##### Ponteiros para função
+
+A declaração abaixo diz que `fun` é uma função que recebe um `int` e não retorna nada:
+```c
+void fun(int);
+```
+Colocando um `typedef` na frente, se está declarando um tipo (o tipo que representa uma função que recebe um `int` e não retorna nada), e `fun` poderia ser declarada, de forma equivalente, assim:
+```c
+typedef void tf(int);
+tf fun;
+```
+Não dá para declarar uma variável que é uma função, mas pode-se declarar uma variável que é um ponteiro para uma função. Essa variável pode ser inicializada para apontar para qualquer função compatível (no caso, que recebe um `int` e não retorna nada). Para chamar a função apontada por um ponteiro, usa-se o nome do ponteiro como se ele fosse o nome da função apontada. O código abaixo executará a função `fun` com argumento `52`:
+```c
+#include <stdio.h>
+
+typedef void tf(int);
+tf fun;
+
+int main()
+{
+  tf *ff = &fun;
+  ff(52);
+}
+
+void fun(int x)
+{
+  printf("%d\n", x);
+}
+```
+O nome de uma função, sem parênteses, representa uma referência para a função, não sendo necessário usar o operador `&`.
+Como não se pode declarar uma variável que é uma função e só variáveis que são ponteiros para função, é mais comum codificar o programa acima de forma equivalente, mas ainda menos clara:
+```c
+#include <stdio.h>
+
+typedef void (*tpf)(int);
+void fun(int);
+
+int main()
+{
+  tpf ff = fun;
+  ff(52);
+}
+
+void fun(int x)
+{
+  printf("%d\n", x);
+}
+```
+Um ponteiro para função pode ser passado para outra função:
+```c
+#include <stdio.h>
+
+typedef void (*tpf)(int);
+void fun(int);
+
+void processa_vetor(int n, int v[n], tpf função)
+{
+    for (int i = 0; i < n; i++) {
+        função(v[i]);
+    }
+}
+
+int main()
+{
+    int vet[] = { 1, 7, 15, 3, 18 };
+    processa_vetor(5, v, fun);
+}
+
+void fun(int x)
+{
+  printf("%d\n", x);
+}
+```

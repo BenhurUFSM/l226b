@@ -82,6 +82,7 @@ Os assuntos vistos em aula serão listados aqui.
 |    8 |  26ago | implementação de lista encadeada com alocação contígua (o arquivo acima foi alterado, o código exemplo foi corrigido, implemente o exercício).
 |    9 |  31ago | exercícios sobre listas
 |   10 |   2set | [listas duplamente encadeadas](Assuntos/lista-duplamente-encadeada.md)
+|   11 |   9set | [listas encadeadas — complementos](Assuntos/lista-duplamente-encadeada.md)
 
 ## Exercícios, trabalhos
 
