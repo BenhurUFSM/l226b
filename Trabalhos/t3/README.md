@@ -75,3 +75,7 @@ Uma função que opera, por exemplo uma função para a soma, retira dois operan
 O operador `=` retira dois operandos da pilha, obtém o valor do primeiro retirado, cria uma string com esse valor, verifica se o segundo valor retirado é um nome, e insere esse nome como chave para o valor, no dicionário. Empilha o resultado.
 
 Na tabela, a linha com o operador `=` contém `E` em todas as colunas exceto nas colunas `F` e `)`, que tem `O`. A coluna do `=` tem `E` em todas as linhas.
+
+### Dicas
+
+- Crie um TAD para a calculadora, assim fica mais fácil organizar o código e ter onde manter seus dados (como o dicionário das variáveis).
