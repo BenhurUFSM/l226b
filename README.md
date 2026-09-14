@@ -83,6 +83,7 @@ Os assuntos vistos em aula serão listados aqui.
 |    9 |  31ago | exercícios sobre listas
 |   10 |   2set | [listas duplamente encadeadas](Assuntos/lista-duplamente-encadeada.md)
 |   11 |   9set | [listas encadeadas — complementos](Assuntos/lista-duplamente-encadeada.md)
+|   12 |  14set | [árvores](Assuntos/arvore.md)
 
 ## Exercícios, trabalhos
 
