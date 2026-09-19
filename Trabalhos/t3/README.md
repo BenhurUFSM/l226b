@@ -76,8 +76,14 @@ O operador `=` retira dois operandos da pilha, obtém o valor do primeiro retira
 
 Na tabela, a linha com o operador `=` contém `E` em todas as colunas exceto nas colunas `F` e `)`, que tem `O`. A coluna do `=` tem `E` em todas as linhas.
 
-### Dicas
+### Dicas + esclarecimentos
 
 - Crie um TAD para a calculadora, assim fica mais fácil organizar o código e ter onde manter seus dados (como o dicionário das variáveis).
 - Para converter um número para uma string, use a função `sprintf`. Funciona como printf, mas em vez de colocar o resultado no terminal, coloca como uma string em um vetor, que ela deve receber como primeiro parâmetro. `sprintf(v, "%d", 5+7);` coloca os caracteres `'1'`, `'2'` e `'\0'` nas primeiras 3 posições do vetor `v`.
 - Para converter uma string em um número, use `sscanf`. `sscanf(v, "%3d", &x);` coloca na variável `x` o valor inteiro obtido dos primeiros 3 caracteres do vetor `v`. A função `scanf` para no primeiro caractere que não puder ser usado na conversão, ou no \0 ou, quando tem um número depois do `%` como no exemplo, após esse número de caracteres. Caso esse número esteja em uma variável, dá para fazer: `sscanf(v, "%*d", n, &x);`
+- Variáveis iniciam em letra ou '$'. Não precisa considerar acentos.
+- O dicionário serve para armazenar as variáveis. Quando opera o `=`, altera ou cria uma variável, inserindo no dicionário; quando o nome da variável aparece em outro local, é feita uma consulta ao dicionário.
+
+   A função que obtém o valor de um operando deve verificar o tipo (por exemplo, olhando o primeiro caractere do operando), e se for variável, obter o valor no dicionário e depois obter o valor numérico na string obtida do dicionário. Senão, obter o valor diretamente da string do operando.
+
+   Como quando opera o `=` não se usa o valor numérico, dá para abreviar a obtenção do valor nesse caso: se não for variável, já tem o valor como string, e se for, obtém o valor como string do dicionário.
