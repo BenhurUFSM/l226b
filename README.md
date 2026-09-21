@@ -85,6 +85,7 @@ Os assuntos vistos em aula serão listados aqui.
 |   11 |   9set | [listas encadeadas — complementos](Assuntos/lista-duplamente-encadeada.md)
 |   12 |  14set | [árvores](Assuntos/arvore.md)
 |   13 |  16set | [árvores - percurso + ABB](Assuntos/arvore.md)
+|   14 |  21set | [implementação de árvore binária de busca](Complementos/abb.c)
 
 ## Exercícios, trabalhos
 
