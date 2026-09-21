@@ -73,6 +73,7 @@ ABB abb_insere(ABB a, chave_t chave, valor_t valor, valor_t *panterior,
 ABB abb_remove(ABB a, chave_t chave, valor_t *pvalor,
                comparador_t menor, comparador_t igual)
 {
+  if (pvalor != NULL) *pvalor = VALOR_NÃO_EXISTE;
   return a;
 }
 
