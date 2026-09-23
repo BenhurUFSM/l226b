@@ -323,13 +323,34 @@ dee-->deed
 dd-->dde
 dd-->ddd
 ```
-
-o 6 tomou o lugar do 5. Subindo, skew no 8, que tem filho esquerdo (6) no
+rodando skew na nova raiz local (8), tem filho esquerdo (6) no
   mesmo nível:
 ```
 3     4--->10------v
 2    2    6-->8    12
 1   1 3  5   7 9 11  13
+```
+```mermaid
+block
+columns 12
+space:3 r(("<b>04</b>")) space:4 d(("<b>10</b>")) space:3
+space:4 f<[" "]>(down) space:7
+space e(("02")) space:2 de(("06")) space ded(("08")) space:3 dd(("12")) space
+space:12
+ee(("01")) space ed(("03")) space dee(("05")) space dede(("07")) space dedd(("09")) dde(("11")) space ddd(("13"))
+r-->e
+r-->d
+e-->ee
+e-->ed
+d-->ded
+d-->dd
+de-->dee
+de-->ded
+ded-->dede
+ded-->dedd
+dd-->dde
+dd-->ddd
+```
 o 6 tomou o lugar do 8, e split nele não dá nada. Subindo, nem skew nem split
   no 10. Subindo, nem skew nem split no 4. Voltou para a raiz, a inserção está
   pronta.
