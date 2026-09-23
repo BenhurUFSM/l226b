@@ -157,17 +157,17 @@ space:2 f<[" "]>(down) space:10
 space:2 r(("04")) space:4 d(("10")) space:7
 space e(("02")) space:4 de(("08")) space:6 dd(("12")) space
 ee(("01")) space ed(("03")) space dee(("05")) space deed(("07")) space ded(("09")) space dde(("11")) space ddd(("13"))
-r-->e
-r-->d
-e-->ee
-e-->ed
-d-->de
-d-->dd
-de-->dee
-de-->ded
-dee->deed
-dd->dde
-dd->ddd
+%%r-->e
+%%r-->d
+%%e-->ee
+%%e-->ed
+%%d-->de
+%%d-->dd
+%%de-->dee
+%%de-->ded
+%%dee->deed
+%%dd->dde
+%%dd->ddd
 ```
 ```
 inserção do valor 6 (à esquerda do 7, no nível 1):
