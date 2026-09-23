@@ -198,14 +198,61 @@ de-->ded
 dee-->deed
 dd-->dde
 dd-->ddd
-deed-->deede
 ```
 ```
-após a inserção, roda skew e split no 6 (não dá nada), skew no 7 (tem filho
-  esquerdo no mesmo nível -- rotação):
+após a inserção, roda skew e split no 6 (não dá nada), sobe para o 7 (o que liga o 6 como filho esquerdo):
+```
+```mermaid
+block
+columns 12
+space:3 r(("04")) space:4 d(("10")) space:3
+space:12
+space e(("02")) space:4 de(("08")) space:3 dd(("12")) space
+space:12
+ee(("01")) space ed(("03")) space dee(("05")) space deed(("07")) space ded(("09")) dde(("11")) space ddd(("13"))
+space:5 deede(("06")) f<[" "]>(up) space:5
+r-->e
+r-->d
+e-->ee
+e-->ed
+d-->de
+d-->dd
+de-->dee
+de-->ded
+dee-->deed
+dd-->dde
+dd-->ddd
+deed->deede
+```
+```
+Roda skew no 7 (tem filho esquerdo no mesmo nível -- rotação e raiz local muda para 6):
 3     4--->10--------v
 2    2    8------v   12
 1   1 3  5->6->7 9 11  13
+```
+```mermaid
+block
+columns 12
+space:3 r(("04")) space:4 d(("10")) space:3
+space:12
+space e(("02")) space:4 de(("08")) space:3 dd(("12")) space
+space:12
+ee(("01")) space ed(("03")) space dee(("05")) space deedd(("07")) space ded(("09")) dde(("11")) space ddd(("13"))
+space:4 f<[" "]>(right) deed(("06")) space:6
+r-->e
+r-->d
+e-->ee
+e-->ed
+d-->de
+d-->dd
+de-->dee
+de-->ded
+dee-->deedd
+dd-->dde
+dd-->ddd
+deed->deedd
+```
+```
 o 6 tomou o lugar do 7, e o split nele não dá nada. Subindo, skew no 5 não
   dá nada, mas split sim, porque o neto dele (7) tá no mesmo nível:
 3     4------->10----v
