@@ -167,9 +167,9 @@ d-->de
 d-->dd
 de-->dee
 de-->ded
-%%dee->deed
-dd->dde
-dd->ddd
+dee->deed
+%%dd->dde
+%%dd->ddd
 ```
 ```
 inserção do valor 6 (à esquerda do 7, no nível 1):
