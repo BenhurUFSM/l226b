@@ -74,8 +74,8 @@ block
   columns 13
   space:11 p2<[" "]>(down) space
   space p1<[" "]>(down) space:9 r2(("D")) space
-  space r1(("A")) space d1(("D")) space dd1(("Z")) space:3 space e2(("A")) space d2(("Z"))
-  space:6 f<["split"]>(right):3 space:4
+  space r1(("A")) space d1(("D")) space dd1(("Z")) f<["split"]>(right) space e2(("A")) space d2(("Z"))
+  %%space:6 f<["split"]>(right):3 space:4
   e1(("X")) space de1(("Y")) space:3 space:3 ee2(("X")) space ed2(("Y")) space:2
   r1-->e1
   r1-->d1
