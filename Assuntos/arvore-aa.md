@@ -186,7 +186,7 @@ space:12
 space e(("02")) space:4 de(("08")) space:3 dd(("12")) space
 space:12
 ee(("01")) space ed(("03")) space dee(("05")) space deed(("07")) space ded(("09")) dde(("11")) space ddd(("13"))
-space:4 f<[" "](right) deede(("06")) space:6
+space:4 f<[" "]>(right) deede(("06")) space:6
 r-->e
 r-->d
 e-->ee
