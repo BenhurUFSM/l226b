@@ -105,6 +105,15 @@ Em código:
 }
 ```
 No caso da inserção, basta chamar essas duas funções antes de retornar da chamada recursiva. Elas testam se a rotação é necessária ou não.
+Ou chamar uma função para reequilibrar, no final da inserção:
+```c
+árvore *equilibra_inserção(árvore *a)
+{
+  a = skew(a);
+  a = split(a);
+  return a;
+}
+```
 
 Já no caso da remoção, antes de chamar essas funções, é necessário verificar se o nó deve ter seu nível reduzido. Isso acontece se o nível do nó tem uma diferença maior que 1 para algum filho. Caso o nível do nó seja reduzido, deve-se verificar se seu filho da direita não ficou em um nível acima e reduzí-lo também se for o caso. Se o nível do nó foi reduzido, para garantir que o nó seja reequilibrado em todas as situações, deve-se chamar *skew* no nó, no filho direito do nó e no neto direito do nó, e então chamar *split* no nó e no seu filho direito.
 Em código:
@@ -140,6 +149,26 @@ Exemplo de inserção (a raiz é 4, com filhos 2 e 10; 10 tem filhos 8 e 12; 2 t
 3     4--->10-----v
 2    2    8---v   12
 1   1 3  5->7 9 11  13
+```
+```mermaid
+columns 13
+space:2 f<[" "]>(down) space:10
+space:2 r(("04")) space:4 d(("10")) space:7
+space e(("02")) space:4 de(("08")) space:6 dd(("12")) space
+ee(("01")) space ed(("03")) space dee(("05")) space deed(("07")) space ded(("09")) space dde(("11")) space ddd(("13"))
+r-->e
+r-->d
+e-->ee
+e-->ed
+d-->de
+d-->dd
+de-->dee
+de-->ded
+dee->deed
+dd->dde
+dd->ddd
+```
+```
 inserção do valor 6 (à esquerda do 7, no nível 1):
 3     4--->10-----v
 2    2    8---v   12
