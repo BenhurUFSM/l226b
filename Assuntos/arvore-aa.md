@@ -151,6 +151,7 @@ Exemplo de inserção (a raiz é 4, com filhos 2 e 10; 10 tem filhos 8 e 12; 2 t
 1   1 3  5->7 9 11  13
 ```
 ```mermaid
+block
 columns 13
 space:2 f<[" "]>(down) space:10
 space:2 r(("04")) space:4 d(("10")) space:7
