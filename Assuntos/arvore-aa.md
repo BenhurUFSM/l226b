@@ -301,6 +301,29 @@ dee-->deed
 dd-->dde
 dd-->ddd
 ```
+subindo para o 8, o 6 vira novo filho esquerdo do 8:
+```mermaid
+block
+columns 12
+space:3 r(("<b>04</b>")) space:4 d(("<b>10</b>")) space:3
+space:6 f<[" "]>(down) space:5
+space e(("02")) space:2 dee(("06")) space de(("08")) space:3 dd(("12")) space
+space:12
+ee(("01")) space ed(("03")) space deee(("05")) space deed(("07")) space ded(("09")) dde(("11")) space ddd(("13"))
+r-->e
+r-->d
+e-->ee
+e-->ed
+d-->de
+d-->dd
+de-->dee
+de-->ded
+dee-->deee
+dee-->deed
+dd-->dde
+dd-->ddd
+```
+
 o 6 tomou o lugar do 5. Subindo, skew no 8, que tem filho esquerdo (6) no
   mesmo nível:
 ```
