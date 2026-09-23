@@ -159,10 +159,10 @@ space e(("02")) space:3 de(("08")) space:4 dd(("12")) space
 ee(("01")) space ed(("03")) space dee(("05")) deed(("07")) space ded(("09")) space dde(("11")) space ddd(("13"))
 r-->e
 r-->d
-%%e-->ee
-%%e-->ed
-%%d-->de
-%%d-->dd
+e-->ee
+e-->ed
+d-->de
+d-->dd
 %%de-->dee
 %%de-->ded
 %%dee->deed
