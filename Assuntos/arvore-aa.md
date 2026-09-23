@@ -153,8 +153,8 @@ Exemplo de inserção (a raiz é 4, com filhos 2 e 10; 10 tem filhos 8 e 12; 2 t
 ```mermaid
 block
 columns 12
-space:2 f<[" "]>(down) space:9
-space:3 r(("04")) space:4 d(("10")) space:4
+space:3 f<[" "]>(down) space:8
+space:3 r(("04")) space:4 d(("10")) space:3
 space e(("02")) space:3 de(("08")) space:4 dd(("12")) space
 ee(("01")) space ed(("03")) space dee(("05")) deed(("07")) space ded(("09")) space dde(("11")) space ddd(("13"))
 r-->e
