@@ -35,7 +35,19 @@ A operação *skew* detecta a violação da regra que diz que o nível do filho 
 A correção é inverter a ligação horizontal, e inverter a relação pai-filho, e mudando a raiz da subárvore para o nó que era filho esquerdo da raiz.
 Os filhos desses nós são redistribuídos, tomando o cuidado de manter a ordem exigida pela ABB.
 ```mermaid
-
+block
+  columns 13
+  space e1(("E")) space r1((("A"))) space space:3 r2((("E"))) space d2(("A")) space
+  space:6 f<["skew"]>(right) space:6
+  ee1(("X")) space ed1(("Y")) space d1(("Z")) space:3 e2(("X")) space de2(("Y")) space dd2(("Z"))
+  r1-->e1
+  r1-->d1
+  e1-->ee1
+  e1-->ed1
+  r2-->e2
+  r2-->d2
+  d2-->de2
+  d2-->dd2
 ```
 Em código:
 ```c
