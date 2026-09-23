@@ -296,10 +296,10 @@ d-->de
 d-->dd
 de-->deee
 de-->ded
+dee-->deee
 dee-->deed
 dd-->dde
 dd-->ddd
-deed-->deedd
 ```
 o 6 tomou o lugar do 5. Subindo, skew no 8, que tem filho esquerdo (6) no
   mesmo nível:
