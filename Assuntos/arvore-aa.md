@@ -185,7 +185,7 @@ space:3 r(("04")) space:4 d(("10")) space:3
 space:12
 space e(("02")) space:4 de(("08")) space:3 dd(("12")) space
 space:12
-ee(("01")) space ed(("03")) space dee(("05")) space deed(("07")) space ded(("09")) dde(("11")) space ddd(("13"))
+ee(("01")) space ed(("03")) space dee(("05")) space deed(("<b>07</b>")) space ded(("09")) dde(("11")) space ddd(("13"))
 space:4 f<[" "]>(right) deede(("06")) space:6
 r-->e
 r-->d
@@ -222,7 +222,7 @@ de-->ded
 dee-->deed
 dd-->dde
 dd-->ddd
-deed->deede
+deed-->deede
 ```
 ```
 Roda skew no 7 (tem filho esquerdo no mesmo nível -- rotação e raiz local muda para 6):
@@ -233,7 +233,7 @@ Roda skew no 7 (tem filho esquerdo no mesmo nível -- rotação e raiz local mud
 ```mermaid
 block
 columns 12
-space:3 r(("04")) space:4 d(("10")) space:3
+space:3 r(("<b>04</b>")) space:4 d(("10")) space:3
 space:12
 space e(("02")) space:4 de(("08")) space:3 dd(("12")) space
 space:12
@@ -250,7 +250,7 @@ de-->ded
 dee-->deedd
 dd-->dde
 dd-->ddd
-deed->deedd
+deed-->deedd
 ```
 ```
 o 6 tomou o lugar do 7, e o split nele não dá nada. Subindo, skew no 5 não
