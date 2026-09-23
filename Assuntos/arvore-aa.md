@@ -38,7 +38,7 @@ Os filhos desses nós são redistribuídos, tomando o cuidado de manter a ordem 
 block
   columns 13
   space:3 p1<[" "]>(down) space:5 p2<[" "]>(down) space:3
-  space e1(("E")) space r1(("A")) space space:3 space r2(("E")) space d2(("A")) space
+  space e1(("E")) space r1((("A"))) space space:3 space r2(("E")) space d2(("A")) space
   space:5 f<["skew"]>(right):3 space:5
   ee1(("X")) space ed1(("Y")) space d1(("Z")) space:3 e2(("X")) space de2(("Y")) space dd2(("Z"))
   r1-->e1
