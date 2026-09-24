@@ -357,7 +357,8 @@ block
 columns 12
 space:3 f<[" "]>(down) space:8
 space:3 r(("04")) space:4 d(("10")) space:3
-space e(("02")) space:2 de(("06")) space ded(("08")) space:3 dd(("12")) space
+space:12
+space e(("02")) space:3 de(("06")) space ded(("08")) space:2 dd(("12")) space
 space:12
 ee(("01")) space ed(("03")) space dee(("05")) space dede(("07")) space dedd(("09")) dde(("11")) space ddd(("13"))
 r-->e
