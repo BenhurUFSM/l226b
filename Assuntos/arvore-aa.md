@@ -512,3 +512,8 @@ dd-->ddd
 ```
 O nó 6 é a raiz local e não tem pai. Vira a nova raiz da árvore, fim da remoção.
 
+#### Exercícios
+
+Faça mais inclusões na árvore final do exemplo de inclusão, até que ela ganhe mais um nível. Certifique-se que tem uma árvore AA ao final de cada inclusão.
+
+Faça remoções na árvore final do exemplo de remoção, até que ela perca um nível. Certifique-se que tem uma árvore AA ao final de cada remoção.
