@@ -514,13 +514,35 @@ dd-->ddd
 ddd-->ddde
 ddd-->dddd
 ```
-mais o split do filho direito de quem substituiu o 4. O filho do 6 é o 8,
-  que tem neto 12 no mesmo nível -- sobe o 10, que vira filho do 6; o 10
-  fica com filhos 8 e 12, e o 8 fica com filhos 7 e 9:
+Finalmente o split no filho direito da raiz local.
+O filho do 6 é o 8, que tem neto 12 no mesmo nível.
+O split sobe o 10, que vira filho direito do nó 6.
+Além disso, o 10 fica com filhos 8 e 12, e o 8 fica com filhos 7 e 9:
+```
 3     6------>10---v
 2    4---v   8     12
 1   2->3 5  7 9  11  13
-o nó 6 é a raiz e não tem pai, fim da remoção
 ```
-Se alguém fizer desenhos mais bonitos, publico aqui...
+```mermaid
+block
+columns 12
+space:4 f<[" "]>(down) space:7
+space:4 r(("06")) space:3 d("10") space:3
+space:12
+space:2 e(("04")) space:3 de(("08")) space:3 dd(("12")) space
+space:12
+ee(("02")) space eed(("03")) ed(("05")) space dee(("07")) space ded(("09")) space dde(("11")) space ddd(("13"))
+r-->e
+r-->d
+e-->ee
+e-->ed
+ee-->eed
+d-->de
+d-->dd
+de-->dee
+de-->ded
+dd-->dde
+dd-->ddd
+```
+O nó 6 é a raiz local e não tem pai. Vira a nova raiz da árvore, fim da remoção.
 
