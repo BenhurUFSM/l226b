@@ -324,7 +324,7 @@ dd-->dde
 dd-->ddd
 ```
 rodando skew na nova raiz local (8), tem filho esquerdo (6) no
-  mesmo nível:
+  mesmo nível, inverte e a raiz local passa a ser 6:
 ```
 3     4--->10------v
 2    2    6-->8    12
@@ -351,10 +351,30 @@ ded-->dedd
 dd-->dde
 dd-->ddd
 ```
-o 6 tomou o lugar do 8, e split nele não dá nada. Subindo, nem skew nem split
-  no 10. Subindo, nem skew nem split no 4. Voltou para a raiz, a inserção está
-  pronta.
+A execução de split no 6 não faz nada. Voltando para o 10, o filho esquerdo dele é atualizado com 6. A execução de skew e split no 10 não faz nada. Subindo para o 4, nem skew nem split, e estamos de volta à raiz da árvore, inserção concluída. O estado final da árvore está abaixo.
+```mermaid
+block
+columns 12
+space:3 f<[" "]>(down) space:8
+space:3 r(("04")) space:4 d(("10")) space:3
+space e(("02")) space:2 de(("06")) space ded(("08")) space:3 dd(("12")) space
+space:12
+ee(("01")) space ed(("03")) space dee(("05")) space dede(("07")) space dedd(("09")) dde(("11")) space ddd(("13"))
+r-->e
+r-->d
+e-->ee
+e-->ed
+d-->de
+d-->dd
+de-->dee
+de-->ded
+ded-->dede
+ded-->dedd
+dd-->dde
+dd-->ddd
 ```
+
+
 Exemplo de remoção (use um pouco de imaginação, redesenhe a árvore — tem 3 níveis; os filhos do 4 são 2 e 10, os filhos do 10 são 6 e 12, os filhos do 6 são 5 e 8):
 ```
 3      4-->10------v
