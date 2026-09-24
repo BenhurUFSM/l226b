@@ -408,7 +408,7 @@ ded-->dedd
 dd-->dde
 dd-->ddd
 ```
-Fazendo 3 skews e 2 splits no nó 2 não alteram nada.
+Fazendo skew no 2 não dá nada, skew no filho direito do 2 também não e não existe neto direito. Splits no nó 2 e no nó 3 também não alteram nada.
 Subindo para o nó 4, ele está no nível 3 e seu filho esquerdo (2) está no nível 1. Altera-se o nível do nó 4 para 2. Agora o filho direito do nó 4 está um nível acima, altera o nível do nó 10 para 2 também.
 Ficamos com a configuração abaixo (os nós 4, 10, 6, 8 e 12 estão no nível 2, os domais no nível 1):
 ```
@@ -436,11 +436,33 @@ ded-->dedd
 dd-->dde
 dd-->ddd
 ```
-o skew do 4 não faz nada, mas do seu filho direito (10) sim, porque tem
-  filho esquerdo (6) no mesmo nível
+O skew no nó 4 não faz nada, mas do seu filho direito (10) sim, porque ele tem
+  filho esquerdo (6) no mesmo nível. Inverte o 10 e o 6, passando o filho direito do 6 para esquerdo do 10. O nó 6 passa a ser o filho direito do nó 4:
+```
 2    4--->6--->10--v
 2             8    12
 1   2->3 5   7 9 11  13
+```
+```mermaid
+block
+columns 12
+space:3 f<[" "]>(down) space:8
+space:3 r(("04")) space:1 d("06") space:2 dd(("10")) space:3
+space space space:5 dde(("08")) space:2 ddd(("12")) space
+space:12
+e(("02")) space ed(("03")) space de(("05")) space ddee(("07")) space dded(("09")) ddde(("11")) space dddd(("13"))
+r-->e
+r-->d
+e-->ed
+d-->de
+d-->dd
+dd-->dde
+dd-->ddd
+dde-->ddee
+dde-->dded
+ddd-->ddde
+ddd-->dddd
+```
 aí em cima os filhos do 6 são 5 e 10, os do 10 são 8 e 12
 ainda falta o skew do neto do 4 (que agora é o 10, e tem filho esquerdo 8
   no mesmo nível)
