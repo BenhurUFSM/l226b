@@ -144,7 +144,11 @@ bool diminui_nível(árvore *a)
   return a;
 }
 ```
-Exemplo de inserção (a raiz é 4, com filhos 2 e 10; 10 tem filhos 8 e 12; 2 tem filhos 1 e 3; 8 tem filhos 5 e 9; 12 tem filhos 11 e 13; 5 tem filho direito 7; 4 e 10 estão no nível 3; 2, 8 e 12 no nível 2; 1, 3, 5, 7, 9, 11 e 13 no nível 1):
+
+#### Exemplo de inserção
+
+Considere a árvore desenhada abaixo.
+A raiz é 4, com filhos 2 e 10; 10 tem filhos 8 e 12; 2 tem filhos 1 e 3; 8 tem filhos 5 e 9; 12 tem filhos 11 e 13; 5 tem filho direito 7. Os nós 4 e 10 estão no nível 3; 2, 8 e 12 no nível 2; 1, 3, 5, 7, 9, 11 e 13 no nível 1.
 ```mermaid
 block
 columns 12
@@ -258,7 +262,7 @@ dd-->ddd
 deed-->deedd
 ```
 rodando skew no 5 não
-  dá nada, mas split sim, porque filho o (6) e o neto dele (7) estão no mesmo nível. O 6 sobe e vira a nova raiz local:
+  dá nada, mas split sim, porque filho o (6) e o neto dele (7) estão no mesmo nível. O 6 sobe para o nível 2 e vira a nova raiz local:
 ```mermaid
 block
 columns 12
@@ -349,20 +353,61 @@ dd-->dde
 dd-->ddd
 ```
 
+#### Exemplo de remoção
 
-Exemplo de remoção (use um pouco de imaginação, redesenhe a árvore — tem 3 níveis; os filhos do 4 são 2 e 10, os filhos do 10 são 6 e 12, os filhos do 6 são 5 e 8):
+Considere a árvore acima, ao final da inserção. Nessa árvore, é feita a remoção do nó com valor 1. O caminho até esse nó é 4, 2, 1. O nó 1 é removido (vira uma árvore vazia) e estamos de retorno ao nó 2:
 ```
 3      4-->10------v
 2     2   6-->8    12
-1    1 3 5   7 9 11  13
-remove o 1
-3      4-->10------v
-2     2   6-->8    12
 1      3 5   7 9 11  13
-o 2 tá no nível 2 e tem o filho esquerdo vazio (nível 0), diminui o nível dele
+```
+```mermaid
+block
+columns 12
+space:3 r(("<b>04</b>")) space:4 d(("10")) space:3
+space:1 f<[" "]>(down) space:10
+space e(("02")) space:3 de(("06")) space ded(("08")) space:2 dd(("12")) space
+space:12
+space:2 ed(("03")) space dee(("05")) space dede(("07")) space dedd(("09")) dde(("11")) space ddd(("13"))
+r-->e
+r-->d
+e-->ed
+d-->de
+d-->dd
+de-->dee
+de-->ded
+ded-->dede
+ded-->dedd
+dd-->dde
+dd-->ddd
+```
+
+O nó 2 está no nível 2 e tem o filho esquerdo vazio (nível 0), diminui o nível do nó 2 para o nível 1. O filho direito de 2 já está no nível 1:
+```
 3    4---->10------v
 2         6-->8    12
 1   2->3 5   7 9 11  13
+```
+```mermaid
+block
+columns 12
+space:3 r(("<b>04</b>")) space:4 d(("10")) space:3
+space:12
+space space space:3 de(("06")) space ded(("08")) space:2 dd(("12")) space
+f<[" "]>(down) space:11
+e(("02")) space ed(("03")) space dee(("05")) space dede(("07")) space dedd(("09")) dde(("11")) space ddd(("13"))
+r-->e
+r-->d
+e-->ed
+d-->de
+d-->dd
+de-->dee
+de-->ded
+ded-->dede
+ded-->dedd
+dd-->dde
+dd-->ddd
+```
 o skew e split no 2 e filhos não alteraram nada
 o filho esquerdo do 4 (que é o 2) tá dois níveis abaixo, diminui o nível do 4
   (e do 10, que é filho do 4 e ficaria no nível acima)
