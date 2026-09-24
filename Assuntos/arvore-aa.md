@@ -447,7 +447,7 @@ O skew no nó 4 não faz nada, mas do seu filho direito (10) sim, porque ele tem
 block
 columns 12
 space:3 f<[" "]>(down) space:8
-space:3 r(("04")) space:1 d("06") space:2 dd(("10")) space:3
+space:3 r(("04")) space:1 d(("06")) space:2 dd(("10")) space:3
 space space space:5 dde(("08")) space:2 ddd(("12")) space
 space:12
 e(("02")) space ed(("03")) space de(("05")) space ddee(("07")) space dded(("09")) ddde(("11")) space dddd(("13"))
@@ -463,11 +463,30 @@ dde-->dded
 ddd-->ddde
 ddd-->dddd
 ```
-aí em cima os filhos do 6 são 5 e 10, os do 10 são 8 e 12
-ainda falta o skew do neto do 4 (que agora é o 10, e tem filho esquerdo 8
-  no mesmo nível)
+O terceiro skew (no neto do 4, que é o nó 10) causa a rotação entre os nós 10 e 8, e muda o filho direito do 6 para o nó 8:
+```
 2    4--->6-->8-->10-->12
 1   2->3 5   7   9   11  13
+```
+```mermaid
+block
+columns 12
+space:2 f<[" "]>(down) space:9
+space:2 r(("04")) space d(("06")) space dd(("08")) space ddd(("10")) space dddd(("12")) space
+space:12
+e(("02")) space ed(("03")) space de(("05")) space dde(("07")) space ddde(("09")) dddde(("11")) space ddddd(("13"))
+r-->e
+r-->d
+e-->ed
+d-->de
+d-->dd
+dd-->dde
+dd-->ddd
+ddd-->ddde
+ddd-->dddd
+dddd-->dddde
+dddd-->ddddd
+```
 agora o split do 4 (o neto direito dele é o 8, no mesmo nível -- sobe o 6,
   que fica com filhos 4 e 8, e substitui o 4 na raiz; o 4 fica com filhos
   2 e 5)
