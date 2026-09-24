@@ -474,7 +474,7 @@ columns 12
 space:2 f<[" "]>(down) space:9
 space:2 r(("04")) space d(("06")) space dd(("08")) space ddd(("10")) space dddd(("12")) space
 space:12
-e(("02")) space ed(("03")) space de(("05")) space dde(("07")) space ddde(("09")) dddde(("11")) space ddddd(("13"))
+e(("02")) space ed(("03")) de(("05")) space dde(("07")) space ddde(("09")) space dddde(("11")) space ddddd(("13"))
 r-->e
 r-->d
 e-->ed
@@ -487,12 +487,33 @@ ddd-->dddd
 dddd-->dddde
 dddd-->ddddd
 ```
-agora o split do 4 (o neto direito dele é o 8, no mesmo nível -- sobe o 6,
-  que fica com filhos 4 e 8, e substitui o 4 na raiz; o 4 fica com filhos
-  2 e 5)
+agora o primeiro split na raiz local 4. O neto do nó 4 é o nó 8, que está no mesmo nível. O nó 6 sobe para o nível 1 e vira a nova raiz local, com filhos 4 e 8: o filho esquerdo de 6 (5) vira filho direito de 4:
+```
 3     6-------v
 2    4---v    8-->10-->12
 1   2->3 5   7   9   11  13
+```
+```mermaid
+block
+columns 12
+space:4 f<[" "]>(down) space:7
+space:4 r(("06")) space:7
+space:12
+space:2 e(("04")) space:3 d(("08")) space dd(("10")) space ddd(("12")) space
+space:12
+ee(("02")) space eed(("03")) ed(("05")) space de(("07")) space dde(("09")) space ddde(("11")) space dddd(("13"))
+r-->e
+r-->d
+e-->ee
+e-->ed
+ee-->eed
+d-->de
+d-->dd
+dd-->dde
+dd-->ddd
+ddd-->ddde
+ddd-->dddd
+```
 mais o split do filho direito de quem substituiu o 4. O filho do 6 é o 8,
   que tem neto 12 no mesmo nível -- sobe o 10, que vira filho do 6; o 10
   fica com filhos 8 e 12, e o 8 fica com filhos 7 e 9:
