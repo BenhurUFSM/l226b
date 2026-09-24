@@ -145,11 +145,6 @@ bool diminui_nível(árvore *a)
 }
 ```
 Exemplo de inserção (a raiz é 4, com filhos 2 e 10; 10 tem filhos 8 e 12; 2 tem filhos 1 e 3; 8 tem filhos 5 e 9; 12 tem filhos 11 e 13; 5 tem filho direito 7; 4 e 10 estão no nível 3; 2, 8 e 12 no nível 2; 1, 3, 5, 7, 9, 11 e 13 no nível 1):
-```
-3     4--->10-----v
-2    2    8---v   12
-1   1 3  5->7 9 11  13
-```
 ```mermaid
 block
 columns 12
@@ -171,13 +166,7 @@ dee-->deed
 dd-->dde
 dd-->ddd
 ```
-inserção do valor 6 (à esquerda do 7, no nível 1):
-```
-3     4--->10-----v
-2    2    8---v   12
-1   1 3  5->7 9 11  13
-1          6
-```
+inserção do valor 6 (à esquerda do 7, no nível 1). O caminho até o ponto de inserção está em negrito:
 ```mermaid
 block
 columns 12
@@ -223,11 +212,6 @@ dd-->ddd
 deed-->deede
 ```
 Roda skew no 7 (tem filho esquerdo no mesmo nível -- rotação e raiz local muda para 6):
-```
-3     4--->10--------v
-2    2    8------v   12
-1   1 3  5->6->7 9 11  13
-```
 ```mermaid
 block
 columns 12
@@ -275,11 +259,6 @@ deed-->deedd
 ```
 rodando skew no 5 não
   dá nada, mas split sim, porque filho o (6) e o neto dele (7) estão no mesmo nível. O 6 sobe e vira a nova raiz local:
-```
-3     4------->10----v
-2    2    6<--8--v   12
-1   1 3  5 7     9 11  13
-```
 ```mermaid
 block
 columns 12
@@ -325,11 +304,6 @@ dd-->ddd
 ```
 rodando skew na nova raiz local (8), tem filho esquerdo (6) no
   mesmo nível, inverte e a raiz local passa a ser 6:
-```
-3     4--->10------v
-2    2    6-->8    12
-1   1 3  5   7 9 11  13
-```
 ```mermaid
 block
 columns 12
