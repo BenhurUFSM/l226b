@@ -356,11 +356,6 @@ dd-->ddd
 #### Exemplo de remoção
 
 Considere a árvore acima, ao final da inserção. Nessa árvore, é feita a remoção do nó com valor 1. O caminho até esse nó é 4, 2, 1. O nó 1 é removido (vira uma árvore vazia) e estamos de retorno ao nó 2:
-```
-3      4-->10------v
-2     2   6-->8    12
-1      3 5   7 9 11  13
-```
 ```mermaid
 block
 columns 12
@@ -383,11 +378,6 @@ dd-->ddd
 ```
 
 O nó 2 está no nível 2 e tem o filho esquerdo vazio (nível 0), diminui o nível do nó 2 para o nível 1. O filho direito de 2 já está no nível 1:
-```
-3    4---->10------v
-2         6-->8    12
-1   2->3 5   7 9 11  13
-```
 ```mermaid
 block
 columns 12
@@ -411,11 +401,6 @@ dd-->ddd
 Fazendo skew no 2 não dá nada, skew no filho direito do 2 também não e não existe neto direito. Splits no nó 2 e no nó 3 também não alteram nada.
 Subindo para o nó 4, ele está no nível 3 e seu filho esquerdo (2) está no nível 1. Altera-se o nível do nó 4 para 2. Agora o filho direito do nó 4 está um nível acima, altera o nível do nó 10 para 2 também.
 Ficamos com a configuração abaixo (os nós 4, 10, 6, 8 e 12 estão no nível 2, os domais no nível 1):
-```
-2    4---->10------v
-2         6-->8    12
-1   2->3 5   7 9 11  13
-```
 ```mermaid
 block
 columns 12
@@ -438,11 +423,6 @@ dd-->ddd
 ```
 O skew no nó 4 não faz nada, mas do seu filho direito (10) sim, porque ele tem
   filho esquerdo (6) no mesmo nível. Inverte o 10 e o 6, passando o filho direito do 6 para esquerdo do 10. O nó 6 passa a ser o filho direito do nó 4:
-```
-2    4--->6--->10--v
-2             8    12
-1   2->3 5   7 9 11  13
-```
 ```mermaid
 block
 columns 12
@@ -464,10 +444,6 @@ ddd-->ddde
 ddd-->dddd
 ```
 O terceiro skew (no neto do 4, que é o nó 10) causa a rotação entre os nós 10 e 8, e muda o filho direito do 6 para o nó 8:
-```
-2    4--->6-->8-->10-->12
-1   2->3 5   7   9   11  13
-```
 ```mermaid
 block
 columns 12
@@ -488,11 +464,6 @@ dddd-->dddde
 dddd-->ddddd
 ```
 agora o primeiro split na raiz local 4. O neto do nó 4 é o nó 8, que está no mesmo nível. O nó 6 sobe para o nível 1 e vira a nova raiz local, com filhos 4 e 8: o filho esquerdo de 6 (5) vira filho direito de 4:
-```
-3     6-------v
-2    4---v    8-->10-->12
-1   2->3 5   7   9   11  13
-```
 ```mermaid
 block
 columns 12
@@ -518,16 +489,11 @@ Finalmente o split no filho direito da raiz local.
 O filho do 6 é o 8, que tem neto 12 no mesmo nível.
 O split sobe o 10, que vira filho direito do nó 6.
 Além disso, o 10 fica com filhos 8 e 12, e o 8 fica com filhos 7 e 9:
-```
-3     6------>10---v
-2    4---v   8     12
-1   2->3 5  7 9  11  13
-```
 ```mermaid
 block
 columns 12
 space:4 f<[" "]>(down) space:7
-space:4 r(("06")) space:3 d("10") space:3
+space:4 r(("06")) space:3 d(("10")) space:3
 space:12
 space:2 e(("04")) space:3 de(("08")) space:3 dd(("12")) space
 space:12
