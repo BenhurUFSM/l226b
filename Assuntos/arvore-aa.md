@@ -408,12 +408,34 @@ ded-->dedd
 dd-->dde
 dd-->ddd
 ```
-o skew e split no 2 e filhos não alteraram nada
-o filho esquerdo do 4 (que é o 2) tá dois níveis abaixo, diminui o nível do 4
-  (e do 10, que é filho do 4 e ficaria no nível acima)
+Fazendo 3 skews e 2 splits no nó 2 não alteram nada.
+Subindo para o nó 4, ele está no nível 3 e seu filho esquerdo (2) está no nível 1. Altera-se o nível do nó 4 para 2. Agora o filho direito do nó 4 está um nível acima, altera o nível do nó 10 para 2 também.
+Ficamos com a configuração abaixo (os nós 4, 10, 6, 8 e 12 estão no nível 2, os domais no nível 1):
+```
 2    4---->10------v
 2         6-->8    12
 1   2->3 5   7 9 11  13
+```
+```mermaid
+block
+columns 12
+space:3 f<[" "]>(down) space:8
+space:3 r(("04")) space:4 d(("10")) space:3
+space space space:3 de(("06")) space ded(("08")) space:2 dd(("12")) space
+space:12
+e(("02")) space ed(("03")) space dee(("05")) space dede(("07")) space dedd(("09")) dde(("11")) space ddd(("13"))
+r-->e
+r-->d
+e-->ed
+d-->de
+d-->dd
+de-->dee
+de-->ded
+ded-->dede
+ded-->dedd
+dd-->dde
+dd-->ddd
+```
 o skew do 4 não faz nada, mas do seu filho direito (10) sim, porque tem
   filho esquerdo (6) no mesmo nível
 2    4--->6--->10--v
