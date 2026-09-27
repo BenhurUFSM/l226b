@@ -5,7 +5,7 @@ Uma árvore AA (do inventor, Arne Andersson) é uma árvore de busca binária au
 A cada nó em uma árvore AA é associado uma valor inteiro, chamado *nível*.
 Para que a árvore AA seja válida, é necessário que:
 - a árvore seja uma árvore binária de busca válida;
-- o nível de todo nó folha (nó sem filhos) seja um;
+- o nível de todo nó folha (nó sem filhos) seja 1;
 - o nível de um nó vazio seja 0;
 - o nível do filho esquerdo de um nó seja exatamente um a menos que o de seu pai;
 - o nível do filho direito de um nó seja igual ou um a menos que o de seu pai;
@@ -14,7 +14,7 @@ Para que a árvore AA seja válida, é necessário que:
 
 A ligação de um nó com seu filho que está no mesmo nível (que só é válida com o filho direito) é chamada de ligação horizontal. As demais são ligações verticais.
 
-Com as restrições acima, tem duas configurações possíveis para um nó intermediário (E é filho de D, mas está no mesmo nível):
+Com as restrições acima, só tem duas configurações possíveis para nós intermediários, com nível acima de 1 (E é filho de D, mas está no mesmo nível):
 ```mermaid
 block
   columns 9
@@ -28,11 +28,12 @@ block
   d2-->de2
   d2-->dd2
 ```
+Retirando os nós B, C, F, G e H do desenho acima (substituindo-os por árvores vazias), tem-se as duas configurações possíveis para nós no nível 1.
 
 Tendo uma árvore AA, uma operação de inserção ou remoção (que é realizada como em uma árvore binária de busca não equilibrada) pode quebrar alguma dessas regras. Se for esse o caso, é garantido que se consegue retornar a árvore ao estado AA aplicando duas operações sobre cada nó da árvore, no caminho inverso desde o nó inserido ou removido até a raiz. Essas operações são chamadas *skew* e *split*.
 
 A operação *skew* detecta a violação da regra que diz que o nível do filho esquerdo tem que ser inferior ao de seu pai.
-A correção é inverter a ligação horizontal, e inverter a relação pai-filho, e mudando a raiz da subárvore para o nó que era filho esquerdo da raiz.
+Se essa violação for detectada em uma subárvore, a correção é inverter a ligação horizontal, invertendo a relação pai-filho, e mudar a raiz da subárvore para o nó que era filho esquerdo da raiz.
 Os filhos desses nós são redistribuídos, tomando o cuidado de manter a ordem exigida pela ABB.
 ```mermaid
 block
@@ -53,7 +54,7 @@ Em código:
 ```c
 //   E <- [A]    ---\     [E] -> A
 //  X Y     Z    ---/     X     Y Z
-static árvore *skew(árvore *a)
+árvore *skew(árvore *a)
 {
   int n = nível(a);
   if (n == 0) return a;  // árvore vazia não tem filho esquerdo
@@ -67,7 +68,7 @@ static árvore *skew(árvore *a)
   return e;
 }
 ```
-A operação *split* detecta a violação da regra que diz que um nó não pode ter o neto direito no mesmo nível, e coloca o filho direito um nível acima, como raiz dessa subárvore.
+A operação *split* detecta a violação da regra que diz que um nó não pode ter o neto direito no mesmo nível, e para reverter essa violação coloca o filho direito um nível acima, como raiz dessa subárvore. O nó que era o filho esquerdo da nova raiz é reposicionado, mantendo a ordem ABB.
 ```mermaid
 block
   columns 13
@@ -115,7 +116,7 @@ Ou chamar uma função para reequilibrar, no final da inserção:
 }
 ```
 
-Já no caso da remoção, antes de chamar essas funções, é necessário verificar se o nó deve ter seu nível reduzido. Isso acontece se o nível do nó tem uma diferença maior que 1 para algum filho. Caso o nível do nó seja reduzido, deve-se verificar se seu filho da direita não ficou em um nível acima e reduzí-lo também se for o caso. Se o nível do nó foi reduzido, para garantir que o nó seja reequilibrado em todas as situações, deve-se chamar *skew* no nó, no filho direito do nó e no neto direito do nó, e então chamar *split* no nó e no seu filho direito.
+Já no caso da remoção, antes de chamar essas funções, é necessário verificar se o nó deve ter seu nível reduzido. Isso acontece se o nível do nó tem uma diferença maior que 1 para algum filho. Caso o nível do nó seja reduzido, deve-se verificar se seu filho da direita não ficou em um nível acima e reduzí-lo também se for o caso. Se o nível do nó raiz de uma subárvore foi reduzido, para garantir que essa subárvore seja reequilibrada em todas as situações, deve-se chamar *skew* no raiz, no filho direito da (potencialmente alterada) raiz e no neto direito do raiz, e então chamar *split* na raiz da subárvore e no seu filho direito.
 Em código:
 ```c
 bool diminui_nível(árvore *a)
@@ -149,6 +150,8 @@ bool diminui_nível(árvore *a)
 
 Considere a árvore desenhada abaixo.
 A raiz é 4, com filhos 2 e 10; 10 tem filhos 8 e 12; 2 tem filhos 1 e 3; 8 tem filhos 5 e 9; 12 tem filhos 11 e 13; 5 tem filho direito 7. Os nós 4 e 10 estão no nível 3; 2, 8 e 12 no nível 2; 1, 3, 5, 7, 9, 11 e 13 no nível 1.
+
+Essa árvore é AA: os valores nos nós obedecem a ordem ABB, todos os nós folha estão no nível 1, o único nó com um só filho está no nível 1, só tem duas ligações horizontais, que são para a direita e estão sozinhas.
 ```mermaid
 block
 columns 12
@@ -284,7 +287,7 @@ dee-->deed
 dd-->dde
 dd-->ddd
 ```
-subindo para o 8, o 6 vira novo filho esquerdo do 8:
+subindo para o 8, como o nó com 6 era a raiz da subárvore, vira novo filho esquerdo do 8:
 ```mermaid
 block
 columns 12
@@ -329,7 +332,7 @@ ded-->dedd
 dd-->dde
 dd-->ddd
 ```
-A execução de split no 6 não faz nada. Voltando para o 10, o filho esquerdo dele é atualizado com 6. A execução de skew e split no 10 não faz nada. Subindo para o 4, nem skew nem split, e estamos de volta à raiz da árvore, inserção concluída. O estado final da árvore está abaixo.
+A execução de split no 6 não faz nada. Voltando para o 10, o filho esquerdo dele é atualizado para o nó com 6, que era a raiz da subárvore anterior. A execução de skew e split no 10 não faz nada. Subindo para o 4, nem skew nem split alteram a árvore, e como estamos de volta à raiz da árvore a inserção é concluída. O estado final da árvore está abaixo.
 ```mermaid
 block
 columns 12
