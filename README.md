@@ -96,6 +96,7 @@ Os assuntos vistos em aula serão listados aqui.
 |    T1 | 17ago,<meio-dia | [invasores do espaço](Trabalhos/t1)
 |    T2 | 2set | [TAD string](Trabalhos/t2)
 |    T3 | 29set | [calculadora](Trabalhos/t3)
+|    T4 |  | [cobrinha](Trabalhos/t4)
 
 ## Bibliografia
 
