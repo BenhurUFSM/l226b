@@ -7,7 +7,7 @@ Você deve implementar algumas estruturas de dados necessárias para o treinamen
 - um grafo que suporta dados genéricos tanto nos vértices quanto nas arestas;
 - alguns algoritmos nesses grafos.
 
-### Parte I - o jogo da cobrinha
+### Parte I - o jogo da cobrinha (implementação de fila genérica)
 
 Os arquivos fornecidos implementam o jogo da cobrinha, onde o jogador consegue controlar a direção de uma cobra, tentando alimentá-la e não deixando que ela bata em obstáculos.
 Os arquivos são:
