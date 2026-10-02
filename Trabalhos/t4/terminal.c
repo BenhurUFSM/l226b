@@ -8,9 +8,9 @@
 static void t_seleciona_tela_alternativa(bool alt)
 {
   if (alt) {
-    printf("\e[?1049h");
+    printf("\x1b[?1049h");
   } else {
-    printf("\e[?1049l");
+    printf("\x1b[?1049l");
   }
 }
 
@@ -52,23 +52,24 @@ void t_mostra_cursor(bool mostra)
 
 void t_limpa()
 {
-  printf("\e[2J");
+  t_posiciona((posição){1,1});
+  printf("\x1b[2J");
 }
 
 void t_posiciona(posição pos)
 {
-  printf("\e[%d;%dH", pos.linha, pos.coluna);
+  printf("\x1b[%d;%dH", pos.linha, pos.coluna);
 }
 
 void t_seleciona_cor_normal()
 {
-  printf("\e[m");
+  printf("\x1b[m");
 }
 
 void t_seleciona_cor(cor fundo, cor letra)
 {
-  printf("\e[48;2;%d;%d;%dm", fundo.vermelho, fundo.verde, fundo.azul);
-  printf("\e[38;2;%d;%d;%dm", letra.vermelho, letra.verde, letra.azul);
+  printf("\x1b[48;2;%d;%d;%dm", fundo.vermelho, fundo.verde, fundo.azul);
+  printf("\x1b[38;2;%d;%d;%dm", letra.vermelho, letra.verde, letra.azul);
 }
 
 char t_lê_tecla()
