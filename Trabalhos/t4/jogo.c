@@ -3,6 +3,8 @@
 // morre se bater em si mesma ou na parede ou num obstáculo
 //
 
+// includes {{{1
+
 #include "jogo.h"
 
 #include "fila.h"
@@ -14,334 +16,350 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define N_OBSTÁCULOS 4 // quantos obstáculos simultâneos estão no tabuleiro
-#define TAM_INI_COBRA 5 // quantas partes tem o corpo da cobra no início
+// configurações {{{1
+
+#define N_OBSTÁCULOS      4 // quantos obstáculos simultâneos estão no tabuleiro
+#define TAM_INI_COBRA     5 // quantas partes tem o corpo da cobra no início
 #define JOGO_NUM_ENTRADAS 3 // quantos valores são usados para controlar o jogo
-#define PONTOS_POR_FRUTA 123 // quantos pontos se ganha comendo a fruta
-#define AUMENTO_POR_FRUTA 5 // quanto aumenta a cada alimentação
-#define AUTONOMIA 200 // quantos passos a cobrinha pode dar sem comer
+#define PONTOS_POR_FRUTA  123 // quantos pontos se ganha comendo a fruta
+#define AUMENTO_POR_FRUTA 5   // quanto aumenta a cada alimentação
+#define AUTONOMIA         200 // quantos passos a cobrinha pode dar sem comer
+
+// geometria {{{1
 
 // um retângulo na tela
 typedef struct {
-    posição inf;
-    posição sup;
+  posição inf;
+  posição sup;
 } retângulo;
 
 // retorna a posição do centro do retângulo
 posição retângulo_centro(retângulo r)
 {
-    return (posição) {
-        .linha =  (r.inf.linha  + r.sup.linha ) / 2,
-        .coluna = (r.inf.coluna + r.sup.coluna) / 2
-    };
+  return (posição){.linha  = (r.inf.linha + r.sup.linha) / 2,
+                   .coluna = (r.inf.coluna + r.sup.coluna) / 2};
 }
 
 // retorna true se a posição p está dentro o retângulo r
 bool tá_dentro(posição p, retângulo r)
 {
-    if (p.linha <= r.inf.linha) return false;
-    if (p.coluna <= r.inf.coluna) return false;
-    if (p.linha >= r.sup.linha) return false;
-    if (p.coluna >= r.sup.coluna) return false;
-    return true;
+  if (p.linha <= r.inf.linha) return false;
+  if (p.coluna <= r.inf.coluna) return false;
+  if (p.linha >= r.sup.linha) return false;
+  if (p.coluna >= r.sup.coluna) return false;
+  return true;
 }
 
 // uma direção na tela
-typedef enum { direita,
-    esquerda,
-    cima,
-    baixo } direção;
+typedef enum { direita, esquerda, cima, baixo } direção;
 
-typedef enum { reto,
-    pra_direita,
-    pra_esquerda } lado_da_curva;
+typedef enum { reto, pra_direita, pra_esquerda } lado_da_curva;
+
+// retorna a nova posição de pos, quando se move na direção dir
+posição avanca_pos(posição pos, direção dir)
+{
+  switch (dir) {
+    case direita:
+      pos.coluna++;
+      break;
+    case esquerda:
+      pos.coluna--;
+      break;
+    case cima:
+      pos.linha--;
+      break;
+    case baixo:
+      pos.linha++;
+      break;
+  }
+  return pos;
+}
+
+// tipos {{{1
 
 // uma cobra
 typedef struct {
-    Fila corpo; // posições dos pedacinhos da cobra
-    posição pos_cabeca; // onde está a cabeça da cobra
-    direção direção; // para que lado a cobra está indo
+  Fila    corpo;      // posições dos pedacinhos da cobra
+  posição pos_cabeca; // onde está a cabeça da cobra
+  direção direção;    // para que lado a cobra está indo
 } cobra;
 
 // o estado do jogo
 struct jogo {
-    retângulo tela; // área onde a cobrinha passeia
-    cobra aninha; // a cobrinha
-    int aumentando; // número de peças que faltam na cobrinha
-    Fila obstáculos; // objetos espalhados para complicar a vida da cobrinha
-    posição fruta; // onde está o objeto de desejo da cobrinha
-    int pontos; // quantos pontos foram obtidos até agora
-    enum { normal,
-        terminando,
-        terminado } estado;
-    int passos; // quantos passos a cobrinha já deu
-    int passo_última_fruta; // quantos passos ela tinha dado quando comeu a última fruta
-    int max_passos; // número máximo de passos nesta partida
+  retângulo tela;       // área onde a cobrinha passeia
+  cobra     aninha;     // a cobrinha
+  int       aumentando; // número de peças que faltam na cobrinha
+  Fila      obstáculos; // objetos espalhados para complicar a vida da cobrinha
+  posição   fruta;      // onde está o objeto de desejo da cobrinha
+  int       pontos;     // quantos pontos foram obtidos até agora
+  int       passos;     // quantos passos a cobrinha já deu
+  int       passos_fruta; // passos quando comeu a última fruta
+  int       max_passos;   // número máximo de passos nesta partida
+  enum { normal, terminando, terminado } estado;
 };
 
-// cores dos objetos na tela
-cor fundo = { 0, 0, 0 };
-cor cobra_morrendo = { 200, 30, 30 };
-cor cobra_normal = { 150, 150, 0 };
-cor cor_obstáculo = { 200, 0, 0 };
-cor cor_contorno = { 255, 50, 200 };
+// criação e estado {{{1
 
-// formas dos objetos na tela
-char* desenho_rabo = "."; // \u25e6
-char* desenho_corpo = "O"; // \u25cb
-char* desenho_cabeça = ":"; // \u2687
-char* desenho_fruta = "*"; //
-char* desenho_obstáculo = "X"; //
+void sorteia_obstáculos(Jogo j);
+void sorteia_fruta(Jogo j);
 
-// desenha os pedaços da cobrinha na tela
-void desenha_cobra(Fila f, bool terminando)
+Jogo jogo_cria(int max_passos)
 {
-    if (terminando) {
-        t_seleciona_cor(fundo, cobra_morrendo);
-    } else {
-        t_seleciona_cor(fundo, cobra_normal);
-    }
-    posição pos;
-    f_inicia_percurso(f, 0);
-    f_próximo(f, &pos);
-    t_posiciona(pos);
-    fputs(desenho_rabo, stdout);
-    while (f_próximo(f, &pos)) {
-        t_posiciona(pos);
-        fputs(desenho_corpo, stdout);
-    }
-    t_posiciona(pos);
-    fputs(desenho_cabeça, stdout);
+  Jogo j = malloc(sizeof(*j));
+  assert(j != NULL);
+  j->tela              = (retângulo){{2, 1}, {24, 50}};
+  j->aninha.corpo      = f_cria(sizeof(posição));
+  j->aninha.direção    = cima;
+  j->aninha.pos_cabeca = retângulo_centro(j->tela);
+  f_insere(j->aninha.corpo, &j->aninha.pos_cabeca);
+  j->aumentando = TAM_INI_COBRA;
+  j->obstáculos = f_cria(sizeof(posição));
+  sorteia_obstáculos(j);
+  sorteia_fruta(j);
+  j->pontos       = 0;
+  j->estado       = normal;
+  j->passos       = 0;
+  j->passos_fruta = 0;
+  j->max_passos   = max_passos;
+  return j;
 }
 
-// desenha os obstáculos na tela
-void desenha_obstáculos(Fila f)
+void jogo_destrói(Jogo j)
 {
-    t_seleciona_cor(fundo, cor_obstáculo);
-    f_inicia_percurso(f, 0);
-    posição pos;
-    while (f_próximo(f, &pos)) {
-        t_posiciona(pos);
-        fputs(desenho_obstáculo, stdout);
-    }
-    t_seleciona_cor_normal();
+  f_destrói(j->aninha.corpo);
+  f_destrói(j->obstáculos);
+  free(j);
 }
 
-// desenha a fruta na tela
-void desenha_fruta(posição pos)
+int jogo_num_entradas(Jogo j)
 {
-    t_posiciona(pos);
-    fputs(desenho_fruta, stdout);
+  return JOGO_NUM_ENTRADAS;
 }
 
-// retorna a nova posição de por, quando se move na direção dada
-posição avanca_pos(posição pos, direção dir)
+bool jogo_terminou(Jogo j)
 {
-    switch (dir) {
-    case direita:
-        pos.coluna++;
-        break;
-    case esquerda:
-        pos.coluna--;
-        break;
-    case cima:
-        pos.linha--;
-        break;
-    case baixo:
-        pos.linha++;
-        break;
-    }
-    return pos;
+  return j->estado == terminado;
 }
+
+int jogo_pontos(Jogo j)
+{
+  return j->pontos;
+}
+
+
+// auxiliares {{{1
 
 // retorna true se a fila de posições f contém a posição pos
 bool fila_contém(Fila f, posição pos)
 {
-    posição p;
-    f_inicia_percurso(f, 0);
-    while (f_próximo(f, &p)) {
-        if (pos.linha == p.linha && pos.coluna == p.coluna) {
-            return true;
-        }
+  posição p;
+  f_inicia_percurso(f, 0);
+  while (f_próximo(f, &p)) {
+    if (pos.linha == p.linha && pos.coluna == p.coluna) {
+      return true;
     }
-    return false;
+  }
+  return false;
 }
 
-// desenha a borda de um retângulo na tela
-void desenha_retângulo(retângulo r)
+// retorna um número aleatório entre min e max, inclusivos
+int aleatório_entre(int min, int max)
 {
-    t_posiciona(r.inf);
-    fputs("╭", stdout);
-    for (int c = r.inf.coluna + 1; c < r.sup.coluna; c++) {
-        fputs("─", stdout);
-    }
-    fputs("╮", stdout);
-    for (int l = r.inf.linha + 1; l < r.sup.coluna; l++) {
-        t_posiciona((posição) { l, r.inf.coluna });
-        fputs("│", stdout);
-        t_posiciona((posição) { l, r.sup.coluna });
-        fputs("│", stdout);
-    }
-    t_posiciona((posição) { r.sup.linha, r.inf.coluna });
-    fputs("╰", stdout);
-    for (int c = r.inf.coluna + 1; c < r.sup.coluna; c++) {
-        fputs("─", stdout);
-    }
-    fputs("╯", stdout);
+  return min + rand() % (max - min + 1);
 }
 
-// retorna uma posição aleatória dentro do retângulo (fora das margens)
-posição sorteia_pos(retângulo r)
+// diz se posição dada está sem nada
+bool posição_livre(Jogo j, posição pos)
 {
-    posição pos;
-    int nl = r.sup.linha - r.inf.linha - 1;
-    int nc = r.sup.coluna - r.inf.coluna - 1;
-    pos.linha = rand() % nl + r.inf.linha + 1;
-    pos.coluna = rand() % nc + r.inf.coluna + 1;
-    return pos;
+  // vê se tá fora da tela
+  if (!tá_dentro(pos, j->tela)) return false;
+  // vê se tem um obstáculo
+  if (fila_contém(j->obstáculos, pos)) return false;
+  // vê se tá na cobrinha
+  if (fila_contém(j->aninha.corpo, pos)) return false;
+
+  return true;
+}
+
+// retorna uma posição aleatória dentro do retângulo, onde não tem obstáculo
+//   nem cobrinha
+posição sorteia_pos_livre(Jogo j)
+{
+  posição pos;
+  int     min_lin = j->tela.inf.linha + 1;
+  int     max_lin = j->tela.sup.linha - 1;
+  int     min_col = j->tela.inf.coluna + 1;
+  int     max_col = j->tela.sup.coluna + 1;
+  do {
+    pos.linha  = aleatório_entre(min_lin, max_lin);
+    pos.coluna = aleatório_entre(min_col, max_col);
+  } while (!posição_livre(j, pos));
+  return pos;
 }
 
 // preenche a fila de obstáculos com posições aleatórias
 void sorteia_obstáculos(Jogo j)
 {
-    while (!f_tá_vazia(j->obstáculos)) {
-        f_remove(j->obstáculos, NULL);
-    }
-    int nobs = 0;
-    while (nobs < N_OBSTÁCULOS) {
-        posição pos = sorteia_pos(j->tela);
-        if (!fila_contém(j->aninha.corpo, pos)
-                && !fila_contém(j->obstáculos, pos)) {
-            f_insere(j->obstáculos, &pos);
-            nobs++;
-        }
-    }
+  while (!f_tá_vazia(j->obstáculos)) {
+    f_remove(j->obstáculos, NULL);
+  }
+  for (int nobs = 0; nobs < N_OBSTÁCULOS; nobs++) {
+    posição pos = sorteia_pos_livre(j);
+    f_insere(j->obstáculos, &pos);
+  }
 }
 
 // sorteia a posição onde fica a fruta
 void sorteia_fruta(Jogo j)
 {
-    posição pos;
-    do {
-        pos = sorteia_pos(j->tela);
-    } while (fila_contém(j->aninha.corpo, pos) || fila_contém(j->obstáculos, pos));
-    j->fruta = pos;
+  j->fruta = sorteia_pos_livre(j);
 }
+// desenho {{{1
 
-Jogo jogo_cria(int max_passos)
+// cores dos objetos na tela
+cor cor_fundo          = {0, 0, 0};
+cor cor_cobra_morrendo = {200, 30, 30};
+cor cor_cobra_normal   = {150, 150, 0};
+cor cor_obstáculo      = {200, 0, 0};
+cor cor_contorno       = {255, 50, 200};
+cor cor_fruta          = {55, 50, 180};
+
+// formas dos objetos na tela
+char *desenho_rabo      = "."; // \u25e6
+char *desenho_corpo     = "O"; // \u25cb
+char *desenho_cabeça    = ":"; // \u2687
+char *desenho_fruta     = "*"; //
+char *desenho_obstáculo = "X"; //
+
+// desenha a borda do tabuleiro
+void desenha_contorno(Jogo j)
 {
-    Jogo j = malloc(sizeof(*j));
-    assert(j != NULL);
-    j->tela = (retângulo) { { 2, 1 }, { 24, 50 } };
-    j->aninha.corpo = f_cria(sizeof(posição));
-    j->aninha.direção = cima;
-    j->aninha.pos_cabeca = retângulo_centro(j->tela);
-    f_insere(j->aninha.corpo, &j->aninha.pos_cabeca);
-    j->aumentando = TAM_INI_COBRA;
-    j->obstáculos = f_cria(sizeof(posição));
-    sorteia_obstáculos(j);
-    sorteia_fruta(j);
-    j->pontos = 0;
-    j->estado = normal;
-    j->passos = 0;
-    j->passo_última_fruta = 0;
-    j->max_passos = max_passos;
-    return j;
+  retângulo r = j->tela;
+  t_seleciona_cor(cor_fundo, cor_contorno);
+  t_posiciona(r.inf);
+  fputs("╭", stdout);
+  for (int c = r.inf.coluna + 1; c < r.sup.coluna; c++) {
+    fputs("─", stdout);
+  }
+  fputs("╮", stdout);
+  for (int l = r.inf.linha + 1; l < r.sup.linha; l++) {
+    t_posiciona((posição){l, r.inf.coluna});
+    fputs("│", stdout);
+    t_posiciona((posição){l, r.sup.coluna});
+    fputs("│", stdout);
+  }
+  t_posiciona((posição){r.sup.linha, r.inf.coluna});
+  fputs("╰", stdout);
+  for (int c = r.inf.coluna + 1; c < r.sup.coluna; c++) {
+    fputs("─", stdout);
+  }
+  fputs("╯", stdout);
 }
 
-void jogo_destrói(Jogo j)
+// desenha a cobrinha na tela
+void desenha_cobra(Jogo j)
 {
-    f_destrói(j->aninha.corpo);
-    f_destrói(j->obstáculos);
-    free(j);
+  if (j->estado == terminando) {
+    t_seleciona_cor(cor_fundo, cor_cobra_morrendo);
+  } else {
+    t_seleciona_cor(cor_fundo, cor_cobra_normal);
+  }
+  posição pos;
+  f_inicia_percurso(j->aninha.corpo, 0);
+  f_próximo(j->aninha.corpo, &pos);
+  t_posiciona(pos);
+  fputs(desenho_rabo, stdout);
+  while (f_próximo(j->aninha.corpo, &pos)) {
+    t_posiciona(pos);
+    fputs(desenho_corpo, stdout);
+  }
+  t_posiciona(pos);
+  fputs(desenho_cabeça, stdout);
 }
 
-int jogo_num_entradas(Jogo j)
+// desenha os obstáculos na tela
+void desenha_obstáculos(Jogo j)
 {
-    return JOGO_NUM_ENTRADAS;
+  t_seleciona_cor(cor_fundo, cor_obstáculo);
+  posição pos;
+  f_inicia_percurso(j->obstáculos, 0);
+  while (f_próximo(j->obstáculos, &pos)) {
+    t_posiciona(pos);
+    fputs(desenho_obstáculo, stdout);
+  }
 }
 
+// desenha a fruta na tela
+void desenha_fruta(Jogo j)
+{
+  t_seleciona_cor(cor_fundo, cor_fruta);
+  t_posiciona(j->fruta);
+  fputs(desenho_fruta, stdout);
+}
+
+
+// desenha a tela do jogo
 void jogo_desenha_tela(Jogo j)
 {
-    t_limpa();
+  t_seleciona_cor(cor_fundo, cor_contorno);
+  t_limpa();
 
-    // desenha o contorno da janela
-    t_seleciona_cor(fundo, cor_contorno);
-    desenha_retângulo(j->tela);
+  // desenha o contorno da janela
+  desenha_contorno(j);
 
-    // desenha os objetos
-    desenha_obstáculos(j->obstáculos);
-    desenha_fruta(j->fruta);
-    desenha_cobra(j->aninha.corpo, j->estado == terminando);
+  // desenha os objetos
+  desenha_obstáculos(j);
+  desenha_fruta(j);
+  desenha_cobra(j);
 
-    // desenha a pontuação
-    t_posiciona((posição) { 1, 1 });
-    printf("%d", j->pontos);
+  // desenha a pontuação
+  t_seleciona_cor_normal();
+  t_posiciona((posição){1, 1});
+  printf("%d", j->pontos);
 }
 
-// muda a direção da cobra de acordo com o lado da curva
-void faz_curva(Jogo j, lado_da_curva lado)
+// movimentação {{{1
+
+void vê_se_acertou_a_fruta(Jogo j)
 {
-    // qual a próxima direção se está indo para tal direção e faz tal curva?
-    direção prox_direita[] = {
-        [cima] = direita,
-        [direita] = baixo,
-        [baixo] = esquerda,
-        [esquerda] = cima,
-    };
-    direção prox_esquerda[] = {
-        [cima] = esquerda,
-        [direita] = cima,
-        [baixo] = direita,
-        [esquerda] = baixo,
-    };
-    if (lado == pra_esquerda) {
-        j->aninha.direção = prox_esquerda[j->aninha.direção];
-    } else if (lado == pra_direita) {
-        j->aninha.direção = prox_direita[j->aninha.direção];
-    } // se for reto, não muda
+  posição pos = j->aninha.pos_cabeca;
+  if (pos.linha == j->fruta.linha && pos.coluna == j->fruta.coluna) {
+    j->pontos += PONTOS_POR_FRUTA;
+    j->aumentando += AUMENTO_POR_FRUTA;
+    sorteia_fruta(j);
+    j->passos_fruta = j->passos;
+  }
 }
 
-posição movimenta_cobrinha(Jogo j)
+bool cobrinha_bateu(Jogo j)
 {
-    // calcula a nova posição da cabeça
-    posição pos = avanca_pos(j->aninha.pos_cabeca, j->aninha.direção);
-    f_insere(j->aninha.corpo, &j->aninha.pos_cabeca);
-
-    // se a cobra não tiver aumentando, tira o último pedaço
-    if (j->aumentando == 0) {
-        f_remove(j->aninha.corpo, NULL);
-    } else {
-        j->aumentando--;
-    }
-
-    j->passos++;
-    return pos;
+  return !posição_livre(j, j->aninha.pos_cabeca);
 }
 
-bool cobrinha_bateu(Jogo j, posição pos)
+// faz um movimento da cobrinha e vê se bateu em algo
+void movimenta_cobrinha(Jogo j)
 {
-    // vê se bateu na borda
-    if (!tá_dentro(pos, j->tela)) return true;
-    // vê se bateu em um obstáculo
-    if (fila_contém(j->obstáculos, pos)) return true;
-    // vê se bateu nela mesma
-    if (fila_contém(j->aninha.corpo, pos)) return true;
+  // calcula a nova posição da cabeça da cobrinha
+  j->aninha.pos_cabeca = avanca_pos(j->aninha.pos_cabeca, j->aninha.direção);
 
-    return false;
+  // vê se essa posição é ok
+  if (cobrinha_bateu(j)) {
+    j->estado = terminando;
+  } else {
+    vê_se_acertou_a_fruta(j);
+  }
+  // coloca a nova cabeça na cobrinha
+  f_insere(j->aninha.corpo, &j->aninha.pos_cabeca);
+
+  // se a cobra não tiver aumentando, tira o último pedaço
+  if (j->aumentando == 0) {
+    f_remove(j->aninha.corpo, NULL);
+  } else {
+    j->aumentando--;
+  }
 }
 
-void vê_se_acertou_a_fruta(Jogo j, posição pos)
-{
-    if (pos.linha == j->fruta.linha && pos.coluna == j->fruta.coluna) {
-        j->pontos += PONTOS_POR_FRUTA;
-        j->aumentando += AUMENTO_POR_FRUTA;
-        sorteia_fruta(j);
-        j->passo_última_fruta = j->passos;
-    }
-}
-
-// movimenta a cobrinha
+// reaje à passagem do tempo
 // - muda a cabeça para uma nova posição, de acordo com a direção
 // - se não tiver aumentando, remove a posição do rabo
 // - verifica se bateu em algo e reage de acordo
@@ -350,44 +368,61 @@ void vê_se_acertou_a_fruta(Jogo j, posição pos)
 //   treinamento)
 void jogo_avança(Jogo j)
 {
-    if (j->estado == terminando) {
-        f_remove(j->aninha.corpo, NULL);
-        if (f_tá_vazia(j->aninha.corpo)) {
-            j->estado = terminado;
-        }
-        return;
+  if (j->estado == terminando) {
+    f_remove(j->aninha.corpo, NULL);
+    if (f_tá_vazia(j->aninha.corpo)) {
+      j->estado = terminado;
     }
-    posição pos = movimenta_cobrinha(j);
+    return;
+  }
 
-    if (cobrinha_bateu(j, pos)) j->estado = terminando;
-    else vê_se_acertou_a_fruta(j, pos);
-    j->aninha.pos_cabeca = pos;
+  movimenta_cobrinha(j);
 
+  if (j->estado == normal) {
+    j->passos++;
     j->pontos++;
-    if (j->passos - j->passo_última_fruta > AUTONOMIA) {
-        j->estado = terminando;
+    if (j->passos - j->passos_fruta > AUTONOMIA) {
+      j->estado = terminando;
     }
     if (j->max_passos != 0 && j->passos > j->max_passos) {
-        j->estado = terminando;
+      j->estado = terminando;
     }
+  }
 }
 
-void jogo_processa_entradas(Jogo j, float entradas[JOGO_NUM_ENTRADAS])
+// entrada {{{1
+
+// muda a direção da cobra de acordo com o lado da curva
+void faz_curva(Jogo j, lado_da_curva lado)
 {
-    //  as entradas são o quanto se acha que tem que ir reto ou pra direita ou
-    //  esquerda
-    if (entradas[1] > entradas[0] && entradas[1] > entradas[2])
-        faz_curva(j, pra_direita);
-    if (entradas[2] > entradas[0] && entradas[2] > entradas[1])
-        faz_curva(j, pra_esquerda);
+  // qual a próxima direção se está indo para tal direção e faz tal curva?
+  direção prox_direita[] = {
+      [cima]     = direita,
+      [direita]  = baixo,
+      [baixo]    = esquerda,
+      [esquerda] = cima,
+  };
+  direção prox_esquerda[] = {
+      [cima]     = esquerda,
+      [direita]  = cima,
+      [baixo]    = direita,
+      [esquerda] = baixo,
+  };
+  if (lado == pra_esquerda) {
+    j->aninha.direção = prox_esquerda[j->aninha.direção];
+  } else if (lado == pra_direita) {
+    j->aninha.direção = prox_direita[j->aninha.direção];
+  } // se for reto, não muda
 }
 
-bool jogo_terminou(Jogo j)
+void jogo_processa_entradas(Jogo j, float *entradas)
 {
-    return j->estado == terminado;
+  //  as entradas são o quanto se acha que tem que ir reto ou pra direita ou
+  //  esquerda
+  if (entradas[1] > entradas[0] && entradas[1] > entradas[2])
+    faz_curva(j, pra_direita);
+  if (entradas[2] > entradas[0] && entradas[2] > entradas[1])
+    faz_curva(j, pra_esquerda);
 }
 
-int jogo_pontos(Jogo j)
-{
-    return j->pontos;
-}
+// vim: foldmethod=marker shiftwidth=2
