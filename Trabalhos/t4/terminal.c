@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 // salva ou recupera o conteúdo da tela
 static void t_seleciona_tela_alternativa(bool alt)
 {
@@ -52,7 +51,7 @@ void t_mostra_cursor(bool mostra)
 
 void t_limpa()
 {
-  t_posiciona((posição){1,1});
+  t_posiciona((posição){1, 1});
   printf("\x1b[2J");
 }
 
@@ -78,8 +77,7 @@ char t_lê_tecla()
   fflush(stdout);
   // lê um caractere e retorna
   char c;
-  if (fread(&c, 1, 1, stdin) == 1)
-    return c;
+  if (fread(&c, 1, 1, stdin) == 1) return c;
   // se a leitura não deu certo, retorna 0
   return 0;
 }
