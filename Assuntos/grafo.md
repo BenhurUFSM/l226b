@@ -24,12 +24,6 @@ g1(V,E)
 V={A, B, C, D}
 E={{A,B},{A,C},{B,C},{D,B}}
 ```
-O grafo g2 pode ser representado assim:
-```
-g2(V,E)
-V={A, B, C, D}
-E={(A,B),(A,C),(A,D),(B,D)}
-```
 ```mermaid
 block
 columns 3
@@ -41,6 +35,12 @@ a---b
 a---c
 b---c
 d---b
+```
+O grafo g2 pode ser representado assim:
+```
+g2(V,E)
+V={A, B, C, D}
+E={(A,B),(A,C),(A,D),(B,D)}
 ```
 ```mermaid
 block
@@ -54,7 +54,6 @@ a-->c
 a-->d
 b-->d
 ```
-![grafos g1 e g2](https://github.com/BenhurUFSM/l224a/blob/main/Aulas/g1g2.png)
 
 
 Um grafo pode ser **ponderado** ou **valorado**, quando se tem um valor numérico associado a cada vértice ou, mais comumente, a cada aresta. Esse valor pode representar, por exemplo, o custo para se percorrer o caminho representado por essa aresta.
@@ -71,11 +70,12 @@ Se todos os nós têm arestas com todos os demais, o grafo é chamado de **compl
 
 Um **laço** é uma aresta que une um nó a ele mesmo.
 
-Um **caminho** é uma sequência de vértices *(v<sub>0</sub>, v<sub>1</sub>, v<sub>2</sub>, .., v<sub>n</sub>)*, em que *v<sub>0</sub>* a *v<sub>n</sub>* pertencem a *V*, e todos os pares consecutivos no caminho *(v<sub>i</sub>,v<sub>i+1</sub>)* pertencem a *E* (ou *{v<sub>i</sub>,v<sub>i+1</sub>}* no caso de grafo não orientado). Esse caminho une o vértice *v<sub>0</sub>* ao vértice *v<sub>n</sub>* e tem comprimento *n*.
+Um **caminho** é uma sequência de vértices $(v_0, v_1, v_2, ..., v_n)$, em que $v_0$ a $v_n$ pertencem a $V$, e todos os pares consecutivos no caminho $(v_i,v_{i+1})$ pertencem a $E$ (ou $\{v_i,v_{i+1}\}$ no caso de grafo não orientado).
+Esse caminho une o vértice $v_0$ ao vértice $v_n$ e tem comprimento $n$.
 Se não existem vértices repetidos em um caminho, ele é dito **simples**.
 Se o primeiro e o último vértice de um caminho são o mesmo, esse caminho é chamado de **ciclo**.
 
-Se existe um caminho ligando *a* a *b*, diz-se que *b* é **alcançável** a partir de *a*. 
+Se existe um caminho ligando $a$ a $b$, diz-se que $b$ é **alcançável** a partir de $a$. 
 Se existe um caminho interligando todos os vértices de um grafo, esse grafo é chamado de **conexo**.
 No caso de grafo orientado, ele é chamado de **fortemente conexo** se existe pelo menos um caminho que conecta cada dois vértices em cada sentido, os seja, se todos os nós são alcançáveis a partir de qualquer nó.
 
@@ -94,9 +94,11 @@ De qualquer forma, tem um trabalho a mais no início do percurso, para inicializ
 
 ```
 percurso_profundidade(grafo g):
-   para cada nó n em g.V       // nenhum nó foi visitado ainda
+   // nenhum nó foi visitado ainda
+   para cada nó n em g.V
       desmarca(n)
-   para cada nó n em g.V       // inicia o percurso em cada nó que ainda não foi visitado
+   // inicia o percurso em cada nó que ainda não foi visitado
+   para cada nó n em g.V
       if não_marcado(n)
          percorre_profundidade(g, n)
 
@@ -113,9 +115,11 @@ percorre_profundidade(grafo g, vértice n):
 ```
 percurso_largura(g):
    fila f
-   para cada nó n em g.V       // nenhum nó foi visitado ainda
+   // nenhum nó foi visitado ainda
+   para cada nó n em g.V
       desmarca(n)
-   para cada nó n em g.V       // inicia o percurso em cada nó que ainda não foi visitado
+   // inicia o percurso em cada nó que ainda não foi visitado
+   para cada nó n em g.V
       if não_marcado(n)
          insere(f, n)
       while !vazia(f)
@@ -123,7 +127,8 @@ percurso_largura(g):
          if não_marcado(m)
             visita(m)
             marca(m)
-            para cada nó o adjacente a m em g   // coloca os vizinhos na fila para visita futura
+            // coloca os vizinhos na fila para visita futura
+            para cada nó 'o' adjacente a 'm' em 'g'
                if não_marcado(o)
                   insere(f, o)
 ```

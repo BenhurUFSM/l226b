@@ -89,6 +89,8 @@ Os assuntos vistos em aula serão listados aqui.
 |   14 |  21set | [implementação de árvore binária de busca](Complementos/abb.c)
 |   15 |  23set | [árvore AA](Assuntos/arvore-aa.md)
 |   16 |  28set | [fila de prioridade](Assuntos/heap.md)
+|   17 |  30set | [t4](Trabalhos/t4)
+|   18 |   5out | [grafo](Assuntos/grafo.md)
 
 ## Exercícios, trabalhos
 
