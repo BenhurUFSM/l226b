@@ -70,7 +70,7 @@ Se todos os nós têm arestas com todos os demais, o grafo é chamado de **compl
 
 Um **laço** é uma aresta que une um nó a ele mesmo.
 
-Um **caminho** é uma sequência de vértices $(v_0, v_1, v_2, ..., v_n)$, em que $v_0$ a $v_n$ pertencem a $V$, e todos os pares consecutivos no caminho $(v_i,v_{i+1})$ pertencem a $E$ (ou {$v_i,v_{i+1}$} no caso de grafo não orientado).
+Um **caminho** é uma sequência de vértices $(v_0, v_1, v_2, ..., v_n)$, em que $v_0$ a $v_n$ pertencem a $V$, e todos os pares consecutivos no caminho $(v_i,v_{i+1})$ pertencem a $E$ (ou \{$v_i,v_{i+1}$\} no caso de grafo não orientado).
 Esse caminho une o vértice $v_0$ ao vértice $v_n$ e tem comprimento $n$.
 Se não existem vértices repetidos em um caminho, ele é dito **simples**.
 Se o primeiro e o último vértice de um caminho são o mesmo, esse caminho é chamado de **ciclo**.
