@@ -27,11 +27,13 @@ typedef struct {
 // configura o terminal
 // coloca-o no modo "cru", para permitir a leitura de cada caractere digitado
 //   sem esperar pelo "enter".
-// deve ser chamada antes de qualquer outra função deste arquivo (no início do programa)
+// deve ser chamada antes de qualquer outra função deste arquivo (no início
+//   do programa)
 void t_configura();
 
 // devolve o terminal para o estado normal
-// deve ser chamada quando após encerrar o uso do terminal (no final do programa)
+// deve ser chamada quando após encerrar o uso do terminal (no final do
+//   programa)
 void t_normaliza();
 
 // limpa a tela
@@ -40,7 +42,8 @@ void t_limpa();
 // posiciona o cursor (0,0 é o canto superior esquerdo)
 void t_posiciona(posição pos);
 
-// seleciona a cor normal (como configurado no terminal) para as próximas impressões
+// seleciona a cor normal (como configurado no terminal) para as próximas
+//   impressões
 void t_seleciona_cor_normal(void);
 
 // seleciona a cor do fundo e das letras para as próximas impressões
