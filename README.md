@@ -91,6 +91,7 @@ Os assuntos vistos em aula serão listados aqui.
 |   16 |  28set | [fila de prioridade](Assuntos/heap.md)
 |   17 |  30set | [t4](Trabalhos/t4)
 |   18 |   5out | [grafo](Assuntos/grafo.md)
+|   19 |   7out | [grafo, detecção de ciclos](Assuntos/grafo.md)
 
 ## Exercícios, trabalhos
 
