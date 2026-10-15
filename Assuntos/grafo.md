@@ -539,7 +539,7 @@ block
 columns 7
 space a(("a")) space:5
 b(("b")) space:6
-space:6 f(("c"))
+space:6 c(("c"))
 a---b
 b---c
 c---a
