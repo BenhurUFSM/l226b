@@ -492,11 +492,26 @@ space a(("a")) space:5
 b(("b")) space:2 c(("c")) space d(("d")) space
 space e(("e")) space:4 f(("f"))
 space:2 g(("g")) space:2 h(("h")) space
+b---h
+h---d
+d---a
+c---d
+f---g
+g---e
+e---c
+```
+```mermaid
+block
+columns 7
+space a(("a")) space:5
+b(("b")) space:2 c(("c")) space d(("d")) space
+space e(("e")) space:4 f(("f"))
+space:2 g(("g")) space:2 h(("h")) space
 a-->b
 b-->h
 h-->d
-d<--a
-c<--f
+a-->d
+f-->c
 f-->g
 g-->e
 e-->c
