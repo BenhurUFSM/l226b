@@ -539,7 +539,7 @@ block
 columns 7
 space a(("a")) space:5
 b(("b")) space:6
-space:6 f(("f"))
+space:6 f(("c"))
 a---b
 b---c
 c---a
@@ -561,4 +561,23 @@ g-->e
 e-->c
 e-->a
 d-->f
+```
+```mermaid
+block
+columns 7
+space a(("a")) space:5
+b(("b")) space:2 c(("c")) space d(("d")) space
+space e(("e")) space:4 f(("f"))
+space:2 g(("g")) space:2 h(("h")) space
+a-->b
+b-->h
+h-->d
+a-->d
+f-->c
+f-->g
+g-->e
+e-->c
+e-->a
+d-->f
+c-->d
 ```
