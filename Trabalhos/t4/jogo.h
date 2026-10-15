@@ -18,12 +18,18 @@ bool jogo_terminou(Jogo j);
 // retorna o número de dados de entrada para controlar o jogo (3)
 int jogo_num_entradas(Jogo j);
 
+// retorna o número de dados de saída com o estado do jogo
+int jogo_num_saídas(Jogo j);
+
 // realiza o processamento de dados de entrada para controlar o jogo
 // o controle é feito por um vetor de 3 números, o maior diz o que fazer
 // - se for o primeiro, é para continuar como está
 // - se for o segundo, é para dobrar à direita
 // - se for o terceiro, é para dobrar à esquerda
 void jogo_processa_entradas(Jogo j, float *entradas);
+
+// preenche o vetor saídas com os dados que informam o estado interno do jogo
+void jogo_preenche_saídas(Jogo j, float *saídas);
 
 // avança na execução do jogo - movimenta o que tiver que ser movimentado,
 //   verifica colisões, pontua, etc
