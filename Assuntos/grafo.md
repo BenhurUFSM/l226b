@@ -458,7 +458,7 @@ block
 columns 7
 space a(("a")) space:5
 b(("b")) space:2 c(("c")) space d(("d")) space
-space e(("e")) space:3 f(("f"))
+space e(("e")) space:4 f(("f"))
 space:2 g(("g")) space:2 h(("h")) space
 a---b
 b---h
