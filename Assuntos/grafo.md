@@ -447,4 +447,25 @@ bool acíclico_por_grau_de_entrada(int n_nós, bool grafo[n_nós][n_nós])
 }
 ```
 
+### Exercícios
 
+Classifique os grafos abaixo (digrafo, não orientado, conexo, fortemente conexo, acíclico, regular, completo).
+Mostre os conjuntos $V$ e $E$.
+Mostre a matriz de adjacências correspondente ao grafo.
+Mostre a lista de adjacências correspondente ao grafo.
+```mermaid
+block
+columns 7
+space a(("a")) space:5
+b(("b")) space:2 c(("c")) space d(("d")) space
+space e(("e")) space:3 f(("f"))
+space:2 g(("g")) space:2 h(("h")) space
+a---b
+b---h
+h---d
+d---a
+c---f
+f---g
+g---e
+e---c
+```
