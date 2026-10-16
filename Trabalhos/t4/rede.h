@@ -15,20 +15,31 @@
 //   modelo.
 // Cada aresta tem um valor associado, chamado peso. As arestas são direcionais,
 //   ligam um nó de origem a um nó de destino (e não vice-versa).
-// O valor de um nó é calculado pelo somatório dos valores de seus nós
-//   antecessores multiplicado pelo peso da aresta que o liga a esse antecessor.
-//   Para uniformizar esses valores, é usada uma função "sigmoide", que limita
+// O valor de um nó é calculado pelo somatório do valor de cada nó antecessor
+//   multiplicado pelo peso da aresta que o liga a esse antecessor.
+// Para uniformizar esses valores, é usada uma função "sigmoide", que limita
 //   o valor calculado ao intervalo (0,1).
 // Os valores calculados nos nós de saída são os valores de saída da rede, que
 //   são usados como valores de entrada no modelo.
 //
-// O cálculo do valor de um nó é dependente dos valores dos nós que o precedem, logo
-//   necessitamos de uma ordem topológica para realizar esses cálculos.
-// Para facilitar a identificação dos nós de entrada e saída do grafo, os nós de
-//   entrada são os com menores números de identificação, seguidos pelos nós de
-//   saída e então pelos nós intermediários.
+// O cálculo do valor de um nó é dependente dos valores dos nós que o precedem,
+//   logo necessitamos de uma ordem topológica para realizar esses cálculos.
+// Para facilitar a identificação dos nós de entrada e saída do grafo, os nós
+//   de entrada são os com menores números de identificação, seguidos pelos
+//   nós de saída e então pelos nós intermediários.
 // Os valores dos primeiros nós de entrada são fornecidos pelo modelo, a última
 //   entrada sempre vale -1.
+//
+// Tem duas formas de uso das redes.
+// A primeira é para comandar a execução do jogo, à partir de uma rede
+//   pré-existente. Nesse caso, os nós e arestas da rede, assim como seus
+//   pesos estão em um arquivo, que é lido na inicialização. Essa é a parte II
+//   do trabalho.
+// A segunda é para gerar essas ligações e pesos, em um processo evolutivo
+//   de treinamento, em que várias redes são usadas para executar várias
+//   partidas, e as que conseguem pontuação maior sobrevivem e se tenta
+//   aprimorá-las de forma aleatória. As melhores são registradas em arquivos.
+//   Essa é a parte III do trabalho.
 
 typedef struct rede *Rede;
 
