@@ -79,43 +79,52 @@ int rede_num_entradas(Rede self);
 // retorna o número de saídas na rede
 int rede_num_saídas(Rede self);
 
-// insere um novo neurônio na rede, retorno sua posição
+// insere um novo neurônio na rede, retorna sua posição
+// o conteúdo do neurônio é copiado para a rede
 int rede_insere_neurônio(Rede self, neurônio neuro);
 
-// retorna ponteiro para o neurônio na posição pos
+// retorna ponteiro para o neurônio na posição 'pos'
 neurônio *rede_neurônio(Rede self, int pos);
 
-// retorna ponteiro para o pos-ésimo neurônio de entrada
+// retorna ponteiro para o 'pos'-ésimo neurônio de entrada
+// (é o próprio neurônio na posição 'pos' da rede)
 neurônio *rede_neurônio_entrada(Rede self, int pos);
 
-// retorna ponteiro para o pos-ésimo neurônio de saída
+// retorna ponteiro para o 'pos'-ésimo neurônio de saída
+// (é o neurônio na posição 'pos+n_entradas' da rede)
 neurônio *rede_neurônio_saída(Rede self, int pos);
 
-// remove o neurônio na posição pos
+// remove o neurônio na posição 'pos'
+// remove também as sinapses conectadas à esse neurônio
+// a posição dos neurônios seguintes é alterada, de forma a não ter
+//   posição vazia
 void rede_remove_neurônio(Rede self, int pos);
 
-// retorna ponteiro para a sinapse entre os neurônios nas posições pos_org e pos_dest
+// retorna ponteiro para a sinapse entre os neurônios nas posições 'pos_org' e 'pos_dest'
 sinapse *rede_sinapse(Rede self, int pos_org, int pos_dest);
 
-// insere a sinapse sina entre os neurônios em pos_origem e pos_destino
+// insere a sinapse 'sina' entre os neurônios em 'pos_origem' e 'pos_destino'
 // não insere se for formar ciclo
 // retorna true se inseriu
 bool rede_insere_sinapse(Rede self, int pos_origem, int pos_destino, sinapse sina);
 
-// remove a sinapse entre os neurônios em pos_origem e pos_destino
+// remove a sinapse entre os neurônios em 'pos_origem' e 'pos_destino'
 void rede_remove_sinapse(Rede self, int pos_origem, int pos_destino);
 
 // recalcula a ordem topológica de cálculo dos nós
 void rede_calcula_ordem(Rede rede);
 
 // recalcula os valores dos nós da rede, à partir dos valores fornecidos
-//   para as entradas; copia os valores dos nós de saída para o vetor saidas
+//   para as entradas; copia os valores dos nós de saída para o vetor 'saídas'
+// a ordem de cálculo deve obedecer a última ordem obtida por 'rede_calcula_ordem'
 void rede_calcula(Rede rede, float *entradas, float *saídas);
 
 // inicia um percurso pelas sinapses que partem do neurônio em pos_org
 void rede_sinapses_que_partem(Rede self, int pos_org);
 
-// retorna a próxima sinapse do percurso
+// retorna um ponteiro para a próxima sinapse do percurso
+// coloca em '*pos_vizinho' a posição do nó vizinho
+// retorna NULL e não altera '*pos_vizinho' se o percurso já terminou
 sinapse *rede_próxima_sinapse(Rede self, int *pos_vizinho);
 
 #endif // _REDE_H_
