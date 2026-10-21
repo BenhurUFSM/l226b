@@ -317,8 +317,8 @@ A decisão sobre o que fazer pode ser tomada analisando o valor de `dado` e o va
 Uma implementação equivalente poderia ser feita armazenando por coluna em vez de linha.
 
 
+<a id="ciclo"></a>
 ### Detecção de ciclos
-<a id="ciclo"/>
 
 A deteção de ciclos em um grafo não direcionado é mais simples que a detecção em um grafo direcionado.
 Em um grafo não direcionado, pode-se fazer um percurso no grafo, e se esse percurso levar a um nó que já foi visitado,
@@ -583,8 +583,8 @@ d-->f
 c-->d
 ```
 
+<a id="topologica"></a>
 ### Ordem topológica
-<a id="topologica"/>
 
 Uma subclasse bastante importante de grafos são os **DAGs (grafos direcionados acíclicos)**. Por exemplo, toda árvore é um DAG. Um DAG pode ser usado para modelar dependências, como em uma sequência de tarefas, em que umas dependem das outras.
 Por exemplo, pré-requisitos em disciplinas, dependências entre arquivos em uma IDE, dependêncian entre as várias operações necessárias em uma construção, etc.
@@ -644,8 +644,8 @@ O código de detecção de ciclos por percurso em profundidade anterior poderia 
 3. Considere o grafo orientado com as arestas *ae,af,al,be,bi,bc,cf,cg,cj,dc,dg,dn,eh,fi,fm,gf,ih,jk,jl,kn,mj*, dê uma possível ordenação topológica para os nós do grafo.
 
 
+<a id="geradora"></a>
 ### Árvore geradora
-<a id="geradora"/>
 
 Um grafo não orientado, acíclico, conexo é uma árvore.
 Uma árvore com N nós possui N-1 arestas.
