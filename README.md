@@ -95,6 +95,7 @@ Os assuntos vistos em aula serão listados aqui.
 |      |  14out | semana acadêmica
 |   20 |  19out | [grafo, ordem topológica](Assuntos/grafo.md#topologica)
 |   21 |  21out | [grafo, árvore geradora](Assuntos/grafo.md#geradora)
+|   22 |  26out | t4, p3
 
 ## Exercícios, trabalhos
 
