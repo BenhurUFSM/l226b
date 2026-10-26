@@ -74,3 +74,30 @@ Os arquivos `main.c` e `jogo.c` foram alterados para incorporar as novas funcion
 
 A função `g_ordem_topológica` pode ser implementada colocando os números dos nós em uma fila, em ordem crescente, que será uma ordem correta para os arquivos de rede fornecidos. A função `g_tem_ciclo` pode ser implementada retornanto `false`. Posteriormente (parte III), será necessário que essas funções sejam corretamente implementadas. 
 
+### Parte III — treinamento de uma rede neural (algoritmo inspirado em NEAT)
+
+O código foi alterado:
+- jogo.c - tem suporte para jogar sem tela (quando não tem tela, o jogo termina tão logo a cobrinha bata em algo)
+- main.c - suporte a 3 formas de execução: jogo normal, jogo com rede lida de arquivo e treinamento de redes
+
+Tem um tanto de código novo, para implementar o treinamento de uma rede neural, implementando algo próximo ao algoritmo [NEAT (NeuroEvolution of Augmenting Topologies)](http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf).
+O algoritmo funciona criando redes neuronais aleatórias, que são usadas para executar o jogo.
+As que tiverem as melhores pontuações são usadas para a criação de um novo conjunto de redes neurais, constituído por:
+- as redes que pontuaram melhor no conjunto anterior
+- redes criada pela mistura de duas redes anteriores, escolhidas aleatoriamente
+- redes criadas por alterações aleatórias sobre as demais redes:
+  - mudança no peso de sinapses (arestas)
+  - adição de sinapses
+  - adição de neurônios (nós)
+
+O novo conjunto é novamente usado para executar o jogo, os melhores são escolhidos etc.
+
+Um algoritmo desse tipo é chamado de "genético", por ser baseado no método de seleção natural.
+
+Nesse contexto, nosso programa chama uma rede de "Indivíduo", e um conjunto de indivíduos de "Geração". Os indivíduos de uma geração são separados em subgrupos contendo indivíduos considerados semelhantes, chamados "Espécie".
+A implementação de indivíduos, espécies e gerações estão em arquivos separados.
+O gerenciamento do treinamento está em um arquivo chamado "treina.c".
+Além desses, um conjunto de funções auxiliares (principalmente para números aleatórios) está em "auxiliar.c", e alguns valores para configurar o funcionamento do treinamento em "config.h".
+
+*continua*
+
