@@ -7,7 +7,10 @@ typedef struct jogo *Jogo;
 
 // aloca e inicializa os dados para um novo jogo
 // retorna o jogo criado
-Jogo jogo_cria(int duração);
+Jogo jogo_cria();
+
+// prepara o jogo para uma nova partida
+void jogo_inicia(Jogo j, int max_passos);
 
 // libera a memória usada por um jogo
 void jogo_destrói(Jogo j);
