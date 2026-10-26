@@ -64,7 +64,7 @@ int g_num_nós(Grafo self);
 void g_altera_valor_da_aresta(Grafo self, int nó_origem, int nó_destino,
                               void *p_dado);
 
-// retorna um ponteiro para o valor associado à aresta entre nó_origem e 
+// retorna um ponteiro para o valor associado à aresta entre nó_origem e
 //   nó_destino, localizado em memória gerenciada pelo grafo.
 // retorna NULL se tal aresta não existir
 void *g_valor_da_aresta(Grafo self, int nó_origem, int nó_destino);
@@ -80,7 +80,7 @@ void g_arestas_que_partem(Grafo self, int nó_origem);
 void g_arestas_que_chegam(Grafo self, int nó_destino);
 
 // retorna um ponteiro para o dado associado à próxima aresta, de acordo
-//   com a última consulta iniciada por 'g_arestas_que_partem' ou 
+//   com a última consulta iniciada por 'g_arestas_que_partem' ou
 //   'g_arestas_que_chegam'
 // o valor do nó vizinho ao nó da consulta deve ser colocado em '*p_nó_vizinho'
 //   (se não for NULL)
