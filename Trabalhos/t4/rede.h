@@ -60,7 +60,6 @@ typedef struct {
   bool habilitada;
 } sinapse;
 
-
 // cria uma rede neural a partir de um arquivo
 Rede rede_cria(char *nome);
 
@@ -100,13 +99,15 @@ neurônio *rede_neurônio_saída(Rede self, int pos);
 //   posição vazia
 void rede_remove_neurônio(Rede self, int pos);
 
-// retorna ponteiro para a sinapse entre os neurônios nas posições 'pos_org' e 'pos_dest'
+// retorna ponteiro para a sinapse entre os neurônios nas posições 'pos_org' e
+// 'pos_dest'
 sinapse *rede_sinapse(Rede self, int pos_org, int pos_dest);
 
 // insere a sinapse 'sina' entre os neurônios em 'pos_origem' e 'pos_destino'
 // não insere se for formar ciclo
 // retorna true se inseriu
-bool rede_insere_sinapse(Rede self, int pos_origem, int pos_destino, sinapse sina);
+bool rede_insere_sinapse(Rede self, int pos_origem, int pos_destino,
+                         sinapse sina);
 
 // remove a sinapse entre os neurônios em 'pos_origem' e 'pos_destino'
 void rede_remove_sinapse(Rede self, int pos_origem, int pos_destino);
@@ -116,7 +117,8 @@ void rede_calcula_ordem(Rede rede);
 
 // recalcula os valores dos nós da rede, à partir dos valores fornecidos
 //   para as entradas; copia os valores dos nós de saída para o vetor 'saídas'
-// a ordem de cálculo deve obedecer a última ordem obtida por 'rede_calcula_ordem'
+// a ordem de cálculo deve obedecer a última ordem obtida por
+//   'rede_calcula_ordem'
 void rede_calcula(Rede rede, float *entradas, float *saídas);
 
 // inicia um percurso pelas sinapses que partem do neurônio em pos_org
