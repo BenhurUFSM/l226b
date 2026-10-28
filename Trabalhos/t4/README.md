@@ -99,5 +99,24 @@ A implementação de indivíduos, espécies e gerações estão em arquivos sepa
 O gerenciamento do treinamento está em um arquivo chamado "treina.c".
 Além desses, um conjunto de funções auxiliares (principalmente para números aleatórios) está em "auxiliar.c", e alguns valores para configurar o funcionamento do treinamento em "config.h".
 
-*continua*
+#### Estruturas de dados
 
+Na disciplina, estudamos várias estruturas de dados, que organizam o armazenamento e o acesso a conjuntos de dados.
+A implementação fornecida para o treinamento de redes neurais peca em não utilizar muitas dessas estruturas.
+Identifique problemas no código relacionados a isso, e sugira possíveis melhoras.
+Você deve:
+- identificar o problema
+- informar porque isso é um problema
+- propor uma implementação alternativa, usando alguma das estruturas de dados vistas na disciplina
+- dizer porque essa alternativa melhora o problema identificado.
+
+#### API
+
+O programa foi dividido em diversos arquivos, implementando vários TADs.
+Essa forma de dividir um programa modulariza-o, em princípio facilitando a implementação, por concentrar o desenvolvimento em um módulo por vez.
+Para cada TAD, é definido um tipo de dados e um conjunto de operações que podem ser realizadas sobre esses dados.
+Esse conjunto de operações por vezes é chamado de API (*application programming interface*), e define a interface de acesso ao TAD.
+A definição dessa interface permite que o desenvolvimento ocorra de forma independente de cada lado da interface (uso e implementação).
+Por outro lado, se a interface não for bem adaptada, pode levar a implementações ineficientes de um lado e/ou ao desenvolvimento de gambiarras do outro.
+
+Você consegue sugerir alguma alteração na interface definida para grafos que facilitaria seu uso pelo programa de treinamento?
