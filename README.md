@@ -96,6 +96,7 @@ Os assuntos vistos em aula serão listados aqui.
 |   20 |  19out | [grafo, ordem topológica](Assuntos/grafo.md#topologica)
 |   21 |  21out | [grafo, árvore geradora](Assuntos/grafo.md#geradora)
 |   22 |  26out | t4, p3
+|   23 |  28out | com a transferência do feriado, a aula será só para questões sobre o trabalho, sem chamada (presença para todos)
 
 ## Exercícios, trabalhos
 
