@@ -99,14 +99,17 @@ Os assuntos vistos em aula serão listados aqui.
 |   23 |  28out | com a transferência do feriado, a aula será só para questões sobre o trabalho, sem chamada (presença para todos)
 |   24 |   4nov | [grafo, caminho mais curto](Assuntos/grafo.md#caminho)
 
-## Exercícios, trabalhos
+## Exercícios, trabalhos, provas
 
 |     N |     prazo | descrição
 | ----: | --------: | :-----------
 |    T1 | 17ago,<meio-dia | [invasores do espaço](Trabalhos/t1)
 |    T2 | 2set | [TAD string](Trabalhos/t2)
 |    T3 | 29set | [calculadora](Trabalhos/t3)
-|    T4 |  | [cobrinha](Trabalhos/t4)
+|    T4 | 20nov | [cobrinha](Trabalhos/t4)
+| final | 23nov | entrega final, trabalhos + autoavaliação
+| conversas | 24nov-2dez | conversa individual com o professor, horário marcado após entrega final
+|    ex |  9dez | exame
 
 ## Bibliografia
 
