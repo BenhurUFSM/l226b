@@ -824,7 +824,7 @@ O nó escolhido a cada vez é aquele que tem o menor custo conhecido entre os n�
 
 O algoritmo de Dijkstra então é algo como:
 ```c
-  dijstra(grafo g, no inicial)
+  dijstra(grafo g, nó inicial)
   {
     for (n = cada nó em g) {
       visitado[n] = falso
