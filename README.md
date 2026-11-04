@@ -97,6 +97,7 @@ Os assuntos vistos em aula serão listados aqui.
 |   21 |  21out | [grafo, árvore geradora](Assuntos/grafo.md#geradora)
 |   22 |  26out | t4, p3
 |   23 |  28out | com a transferência do feriado, a aula será só para questões sobre o trabalho, sem chamada (presença para todos)
+|   24 |   4nov | [grafo, caminho mais curto](Assuntos/grafo.md#caminho)
 
 ## Exercícios, trabalhos
 
