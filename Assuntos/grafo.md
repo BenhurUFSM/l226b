@@ -962,11 +962,11 @@ floyd_warshall(grafo G)
    para a = cada aresta em G:
       D[origem(a)][destino(a)] = peso(a);
       P[origem(a)][destino(a)] = origem(a);
-   para i = 0 até n-1:
+   para i = cada nó em G:
       D[i][i] = 0;
-   para k = 0 até n-1:
-      para i = 0 até n-1:
-         para j = 0 até n-1:
+   para k = cada nó em G:
+      para i = cada nó em G, i != k:
+         para j = cada nó em G, j != k, j != i:
             nova_dist = D[i][k] + D[k][j]
             if (nova_dist < D[i][j]):
                D[i][j] = nova_dist
@@ -1015,7 +1015,6 @@ f   5 8     0 f   f b       f
 Com `k` valendo `c`:
 - temos `ac` valendo 7 e `ce` valendo 1, mas como `ae` já vale 3, é ignorado.
 - `bc` vale 3 e `ce` vale 1, substitui `be` por 4, pai `c`.
-- `ec` vale 3 e `ce` vale 1, mas `ee` vale 0.
 - `fc` vale 8 e `ce` vale 1, substitui `fe` por 9, pai `c`.
 ```
   a b c d e f   a b c d e f
@@ -1034,18 +1033,15 @@ Com `k` valendo `e`:
 - `ae` vale 3 e `eb` vale 0: `ab` vira 3, pai `e`.
 - `ae` vale 3 e `ec` vale 3: `ac` vira 6, pai `b` (que é o pai de `ec`).
 - `ae` vale 3 e `ef` vale 3: `af` vira 6, pai `e`.
-- `be` vale 4 e `eb` vale 0 mas `bb` vale 0.
 - `be` vale 4 e `ec` vale 3 mas `bc` vale 3.
 - `be` vale 4 e `ef` vale 3: `bf` vira 7, pai `e`.
 - `ce` vale 1 e `eb` vale 0: `cb` vira 1, pai `e`.
-- `ce` vale 1 e `ec` vale 3 mas `cc` vale 0.
 - `ce` vale 1 e `ef` vale 3: `cf` vira 4, pai `e`.
 - `de` vale 1 e `eb` vale 0: `db` vira 1, pai `e`.
 - `de` vale 1 e `ec` vale 3: `dc` vira 4, pai `b`.
 - `de` vale 1 e `ef` vale 3 mas `df` vale 2.
 - `fe` vale 9 e `eb` vale 0 mas `fb` vale 5.
 - `fe` vale 9 e `ec` vale 3 mas `fc` vale 8.
-- `fe` vale 9 e `ef` vale 3 mas `ff` vale 0.
 ```
   a b c d e f   a b c d e f
 a 0 3 6 5 3 6 a   e b a a e a
