@@ -98,6 +98,14 @@ Os assuntos vistos em aula serão listados aqui.
 |   22 |  26out | t4, p3
 |   23 |  28out | com a transferência do feriado, a aula será só para questões sobre o trabalho, sem chamada (presença para todos)
 |   24 |   4nov | [grafo, caminho mais curto](Assuntos/grafo.md#caminho)
+|   25 |   9nov | JAI, desenvolvimento do t4
+|   26 |  11nov | JAI, desenvolvimento do t4
+|   27 |  16nov | desenvolvimento do t4
+|   28 |  18nov | desenvolvimento do t4
+|   29 |  23nov | entrega final
+|   30 |  25nov | conversas finais
+|   31 |  30nov | conversas finais
+|   32 |   2dez | conversas finais
 
 ## Exercícios, trabalhos, provas
 
@@ -105,7 +113,7 @@ Os assuntos vistos em aula serão listados aqui.
 | ----: | --------: | :-----------
 |    T1 | 17ago,<meio-dia | [invasores do espaço](Trabalhos/t1)
 |    T2 | 2set | [TAD string](Trabalhos/t2)
-|    T3 | 29set | [calculadora](Trabalhos/t3)
+|    T3 | 29set | [calculadora](Trabalhos/t3) — avaliação na planilha
 |    T4 | 20nov | [cobrinha](Trabalhos/t4)
 | final | 23nov | entrega final, trabalhos + autoavaliação
 | conversas | 24nov-2dez | conversa individual com o professor, horário marcado após entrega final
