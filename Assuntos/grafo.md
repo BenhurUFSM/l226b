@@ -681,7 +681,7 @@ Por exemplo, a última árvore geradora acima (`ac,bc,ce,de`) poderia ser repres
 #### Árvore geradora mínima
 
 Em um grafo ponderado, com valores associados a suas arestas, o **custo** de uma árvore geradora é a soma dos valores de suas arestas.
-Uma árvore geradora de um grafo é chamada de **árvore geradora de custo mínimo** ou árvore geradora mínima se nenhuma outra árvore geradora desse grafo tiver um custo menor.
+Uma árvore geradora de um grafo é chamada de **árvore geradora de custo mínimo** ou árvore geradora mínima (MST ou *minimum spanning tree* em inglês) se nenhuma outra árvore geradora desse grafo tiver um custo menor.
 
 Ainda no exemplo acima, se as arestas tivessem os pesos `ac4,bc7,cd3,ce2,de1`, as árvores geradoras teriam custo `ac,bc,cd,ce 16`, `ac,bc,cd,de 15`, `ac,bc,ce,de 14`, sendo essa última a árvore geradora mínima.
 Se a aresta `ce` tivesse peso 3, essa última árvore teria peso 15 como a penúltima, e ambas seriam árvores geradoras mínimas.
@@ -808,6 +808,18 @@ grafo kruskal(grafo g)
 #### Exercícios
 
 1. Aplique os algoritmos de Prim e de Kruskal no grafo não orientado com as arestas *ab4,ah8,bh11,bc8,hi7,ic2,hg1,ig6,cd7,cf4,gf2,df14,de9,fe10*, partindo do nó *a*.
+2. \[Sedgewick\]  Tente encontrar uma árvore geradora mínima do grafo não-dirigido com custos nas arestas descrito a seguir.
+   ```
+   0-6  0-1  0-2  4-3  5-3  7-4  5-4  0-5  6-4  7-0  7-6  7-1
+    51   32   29   34   18   46   40   60   51   31   25   21
+   ```
+3. \[Sedgewick\]  Considere o grafo não-dirigido cujos vértices são os pontos no plano dados a seguir por suas coordenadas.
+   ```
+     0     1     2     3     4     5
+   (1,3) (2,1) (6,5) (3,4) (3,7) (5,3)
+   ```
+
+   Suponha que as arestas do grafo são `1-0 3-5 5-2 3-4 5-1 0-3 0-4 4-2 2-3` e o custo de cada aresta `v-w` é igual ao comprimento do segmento de reta que liga os pontos `v` e `w` no plano.  Tente encontrar uma árvore geradora mínima desse grafo. 
 
 
 <a id="caminho"></a>
@@ -854,6 +866,48 @@ Para melhorar o desempenho da busca do nó não visitado com menor distância, e
 Você pode ver uma animação deste algoritmo (e vários outros) na [página do prof. David Galles](https://www.cs.usfca.edu/~galles/visualization/Dijkstra.html).
 
 O algoritmo de Dijkstra não funciona em grafos que tem pesos negativos, e calcula os caminhos mínimos com uma única origem.
+
+##### Exemplo
+
+Considere o grafo direcionado dado pelas arestas `ac7 ad5 ae3 ce1 de1 df2 eb0 ef3 fb5 bc3`.
+A execução do algoritmo de Dijkstra à partir do nó `a` inicializa os 3 vetores com:
+```
+nó   a  b  c  d  e  f
+vis  -  -  -  -  -  -
+dis  0  -  -  -  -  -
+pai  -  -  -  -  -  -
+```
+No laço principal, escolhe o nó não visitado com menor distância (é o nó `a`, com distância 0). Marca-se esse nó como visitado e analisa-se as arestas que partem dele (`ac7, ad5, ae3`). Para cada aresta, calcula-se a nova distância até o nó destino (nesse caso, todas alterarão a distância, porque são todas infinitas), resultando em:
+```
+nó   a  b  c  d  e  f
+vis  x  -  -  -  -  -
+dis  0  -  7  5  3  -
+pai  -  -  a  a  a  -
+```
+A próxima repetição do laço escolhe o nó `e`, que tem a menor distância. Analisa-se então as arestas `eb0 ef3` que partem de `e`. Essas arestas diminuem as distâncias (infinitas) até `b` e `f`, resultando em:
+```
+nó   a  b  c  d  e  f
+vis  x  -  -  -  x  -
+dis  0  3  7  5  3  6
+pai  -  e  a  a  a  e
+```
+A repetição seguinte escolhe `b` e a aresta `bc3`, que diminui a distância até o nó `c`:
+```
+nó   a  b  c  d  e  f
+vis  x  x  -  -  x  -
+dis  0  3  6  5  3  6
+pai  -  e  b  a  a  e
+```
+Agora é escolhido o nó `d` e as arestas `de1 df2`. A aresta `de1` leva a um nó já visitado, e a `df2` chega a `f` com distância 7, que é maior que a distância atual até `f`. Só muda o vetor de visitados é alterado:
+```
+nó   a  b  c  d  e  f
+vis  x  x  -  x  x  -
+dis  0  3  6  5  3  6
+pai  -  e  b  a  a  e
+```
+Os dois nós não visitados restantes têm a mesma distância, tanto faz qual será o escolhido. E, como os pesos não podem ser negativos para esse algoritmo, não haverá mais alterações no vetor de distâncias quando esses dois nós forem analisados. O valor final dos vetores de distâncias e de pais será o que está representado acima.
+
+
 
 #### algoritmo de Floyd-Warshall
 
@@ -921,6 +975,91 @@ floyd_warshall(grafo G)
 }
 ```
 
+##### Exemplo
+
+Considere o grafo direcionado do exemplo de Dijkstra (`ac7 ad5 ae3 ce1 de1 df2 eb0 ef3 fb5 bc3`).
+O algoritmo de Floyd-Marshall inicializa as duas matrizes com os valores e origem das arestas, e a diagonal com zeros:
+```
+  a b c d e f   a b c d e f
+a 0   7 5 3   a     a a a   a
+b   0 3       b     b       b
+c     0   1   c         c   c
+d       0 1 2 d         d d d
+e   0     0 3 e   e       e e
+f   5       0 f   f         f
+  a b c d e f   a b c d e f  
+```
+Com `k` do algoritmo sendo o nó `a`: todos as posições `D[*][a]` da matriz estão com infinito (vazio na representação acima), então não haverá redução de nenhuma distância.
+Com `k` valendo `b`: temos `eb` valendo 0 e `bc` valendo 3 — como `ec` está infinito na matriz, é substituído por 0+3, com pai `b`:
+```
+  a b c d e f   a b c d e f
+a 0   7 5 3   a     a a a   a
+b   0 3       b     b       b
+c     0   1   c         c   c
+d       0 1 2 d         d d d
+e   0 3   0 3 e   e b     e e
+f   5       0 f   f         f
+  a b c d e f   a b c d e f  
+```
+Continuando, `fb` é 5, `bc` é 3 e `fc` é infinito, substitui `fc` por 8, com pai `b` (porque `P[b][c]` é `b`):
+```
+  a b c d e f   a b c d e f
+a 0   7 5 3   a     a a a   a
+b   0 3       b     b       b
+c     0   1   c         c   c
+d       0 1 2 d         d d d
+e   0 3   0 3 e   e b     e e
+f   5 8     0 f   f b       f
+  a b c d e f   a b c d e f  
+```
+Com `k` valendo `c`:
+- temos `ac` valendo 7 e `ce` valendo 1, mas como `ae` já vale 3, é ignorado.
+- `bc` vale 3 e `ce` vale 1, substitui `be` por 4, pai `c`.
+- `ec` vale 3 e `ce` vale 1, mas `ee` vale 0.
+- `fc` vale 8 e `ce` vale 1, substitui `fe` por 9, pai `c`.
+```
+  a b c d e f   a b c d e f
+a 0   7 5 3   a     a a a   a
+b   0 3   4   b     b   c   b
+c     0   1   c         c   c
+d       0 1 2 d         d d d
+e   0 3   0 3 e   e b     e e
+f   5 8   9 0 f   f b   c   f
+  a b c d e f   a b c d e f  
+```
+Com `k` valendo `d`:
+- `ad` vale 5 e `de` vale 1, mas `ae` vale 3.
+
+Com `k` valendo `e`:
+- `ae` vale 3 e `eb` vale 0: `ab` vira 3, pai `e`.
+- `ae` vale 3 e `ec` vale 3: `ac` vira 6, pai `b` (que é o pai de `ec`).
+- `ae` vale 3 e `ef` vale 3: `af` vira 6, pai `e`.
+- `be` vale 4 e `eb` vale 0 mas `bb` vale 0.
+- `be` vale 4 e `ec` vale 3 mas `bc` vale 3.
+- `be` vale 4 e `ef` vale 3: `bf` vira 7, pai `e`.
+- `ce` vale 1 e `eb` vale 0: `cb` vira 1, pai `e`.
+- `ce` vale 1 e `ec` vale 3 mas `cc` vale 0.
+- `ce` vale 1 e `ef` vale 3: `cf` vira 4, pai `e`.
+- `de` vale 1 e `eb` vale 0: `db` vira 1, pai `e`.
+- `de` vale 1 e `ec` vale 3: `dc` vira 4, pai `b`.
+- `de` vale 1 e `ef` vale 3 mas `df` vale 2.
+- `fe` vale 9 e `eb` vale 0 mas `fb` vale 5.
+- `fe` vale 9 e `ec` vale 3 mas `fc` vale 8.
+- `fe` vale 9 e `ef` vale 3 mas `ff` vale 0.
+```
+  a b c d e f   a b c d e f
+a 0 3 6 5 3 6 a   e b a a e a
+b   0 3   4 7 b     b   c e b
+c   1 0   1 4 c   e     c e c
+d   1 4 0 1 2 d   e b   d d d
+e   0 3   0 3 e   e b     e e
+f   5 8   9 0 f   f b   c   f
+  a b c d e f   a b c d e f  
+```
+Com `k` valendo `f`, nenhuma das combinações reduz alguma distância, então o valor final das matrizes é o mostrado acima.
+
+
 ### Exercício
 
+1. Aplique o algoritmo de Dijkstra ao exemplo acima, partindo de outros nós, e compare com o resultado do algoritmo de Floyd-Marshall do exemplo.
 1. Aplique o algoritmo de Floyd-Warshall ao grafo orientado com arestas *ab0,bc4,cd1,da6,db5*. Compare as distâncias obtidas com o algoritmo de Dijkstra, partindo de cada nó.
